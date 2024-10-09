@@ -11,7 +11,7 @@ surtidor::surtidor(string _codigoIdentificador,string _modelo,bool _activo)
     activo = _activo;
 }
 
-void surtidor::cambiarEstado()
+void surtidor::setcambiarEstado()
 {
     if(activo==true)
     {

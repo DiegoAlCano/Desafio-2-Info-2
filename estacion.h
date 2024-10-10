@@ -22,7 +22,7 @@ public://Metodos
     ~estacion();//Destructor
     void agregarSurtidor(const surtidor& nuevoSurtidor);
     void capacidadTanque();
-    void eliminarSurtidor();
+//    void eliminarSurtidor();
 };
 
 #endif // ESTACION_H

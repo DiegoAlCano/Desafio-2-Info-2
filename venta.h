@@ -19,12 +19,12 @@ public:
     float getCantidadCombustibleVendido() const;
     string getCategoriaCombustible() const;
     unsigned int getCantidadDinero() const;
-    
+
     void setCantidadCombustibleVendido(float _cantidadCombustibleVendido);
     void setCantidadDinero(unsigned int _cantidadDinero);
-    
+
     void mostrarVenta();
-    
+
 
     ~Venta();
     Venta(); //Constructor por defecto

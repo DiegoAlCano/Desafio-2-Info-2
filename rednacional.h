@@ -23,6 +23,7 @@ public:
     void eliminarEstacion(estacion,string);
     void establecerPrecio(int,int*&);
     void calcularVentas();
+    ~redNacional();//Destructor
 };
 
 #endif // REDNACIONAL_H

@@ -14,15 +14,19 @@ private://Atributos
     bool activo;
     int numVentas;     // Cantidad actual de ventas
     int capacidad;     // Capacidad actual del arreglo
-    Venta *ventas;
+    Venta* ventas;
+    void redimensionar();
 
 public://Metodos
     surtidor(string, string, bool);//Constructor
     surtidor();
     ~surtidor();//Destructor
-    
+
     string getCodigoIdentificador();
-    void redimensionar();
+    Venta* getVentas();
+    int getCapacidad();
+
+    void mostrarVentas();
     void setcambiarEstado();
     void agregarVenta(const Venta& nuevaVenta);
 };

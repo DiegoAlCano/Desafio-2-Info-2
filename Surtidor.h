@@ -15,6 +15,7 @@ private://Atributos
     int numVentas;     // Cantidad actual de ventas
     int capacidad;     // Capacidad actual del arreglo
     Venta* ventas;
+    void redimensionar();
 
 public://Metodos
     surtidor(string, string, bool);//Constructor
@@ -24,11 +25,11 @@ public://Metodos
     string getCodigoIdentificador();
     Venta* getVentas();
     int getCapacidad();
+    int getNumVentas();
 
     void mostrarVentas();
     void setcambiarEstado();
     void agregarVenta(const Venta& nuevaVenta);
-    void redimensionar();
 };
 
 #endif // SURTIDOR_H

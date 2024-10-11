@@ -38,37 +38,64 @@ void estacion::agregarSurtidor(const surtidor& nuevoSurtidor){
 }
 
 
-void estacion::eliminarSurtidor(string _codigoIdentificador) {
-    if (cantidadSurtidores == 0) {
-        cout << "No hay surtidores para eliminar." << endl;
-        return;
+void estacion::eliminarSurtidor(string _codigoIdentificador){
+
+    string id;
+    for(int i=0;i<cantidadSurtidores;i++){
+        id = Surtidores[i].getCodigoIdentificador();
+        if(id ==_codigoIdentificador){
+            Surtidores[i].~surtidor();
+            for(int k=i;k<cantidadSurtidores-1;k++){
+                Surtidores[k]=Surtidores[k+1];
+            }
+            i = cantidadSurtidores;
+        }
     }
+    cantidadSurtidores--;
 
-    surtidor *newSurtidores = new surtidor[12];  // Crear nuevo arreglo dinámico
+    cout<<"Surtidor eliminado"<<endl;
+    cout<<endl;
+}
 
-    bool encontrado = false;  // Para saber si el surtidor fue encontrado
+void estacion::desactivarSurtidor(string _codigoIdentificador){
+    string id;
 
-    for (int i = 0, j = 0; i < cantidadSurtidores; i++) {
-        if (Surtidores[i].getCodigoIdentificador() == _codigoIdentificador) {
-            // No copiar el surtidor que queremos eliminar
-            encontrado = true;
-        } else {
-            newSurtidores[j] = Surtidores[i];  // Copiar los demás surtidores
-            j++;
+    for(int i=0;i<cantidadSurtidores;i++){
+        id = Surtidores[i].getCodigoIdentificador();
+        if(id ==_codigoIdentificador){
+            Surtidores[i].setcambiarEstado();
+        }
+
+    }
+    cout<<"Surtidor desactivado"<<endl;
+    cout<<endl;
+}
+
+void estacion::cantidadesVendidas(){
+    float regular=0,premium=0,extra=0,vendida=0,numVentas;
+    string tipo;
+
+    for(int i=0;i<cantidadSurtidores;i++){
+        numVentas = (Surtidores[i].getNumVentas());
+        for(int k = 0;k<numVentas;k++){
+            vendida = (Surtidores[i].getVentas())[k].getCantidadCombustibleVendido();
+            tipo = (Surtidores[i].getVentas())[k].getCategoriaCombustible();
+            if(tipo=="Regular"){
+                regular += vendida;
+            }
+            else if(tipo=="Premium"){
+                premium += vendida;
+            }
+            else{
+                extra += vendida;
+            }
         }
     }
 
-    if (encontrado) {
-        cantidadSurtidores--;
-        delete[] Surtidores;  // Liberar memoria del arreglo antiguo
-        Surtidores = newSurtidores;  // Asignar el nuevo arreglo
-        cout << "Surtidor eliminado." << endl;
-    } else {
-        delete[] newSurtidores;  // Si no se encontró, no necesitamos este nuevo arreglo
-        cout << "Surtidor con identificador " << _codigoIdentificador << " no encontrado." << endl;
-    }
-
-    cout << endl;
+    cout<<"Cantidad de combustible Regular vendido: "<<regular<<endl;
+    cout<<"Cantidad de combustible Premium vendido: "<<premium<<endl;
+    cout<<"Cantidad de combustible EcoExtra vendido: "<<extra<<endl;
+    cout<<endl;
 }
 
 void estacion::consultarTransacciones(){
@@ -90,5 +117,4 @@ void estacion::capacidadTanque(){
 
 estacion::~estacion(){
     delete[] Surtidores;
-    cout << "Memoria del arreglo de ventas liberada correctamente." << endl;
 }

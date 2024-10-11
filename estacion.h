@@ -3,6 +3,8 @@
 #include <iostream>
 #include <string.h>
 #include <surtidor.h>
+#include "venta.h"
+#include "surtidor.h"
 using namespace std;
 
 
@@ -15,7 +17,7 @@ private://Atributos
     string region;
     string ubicacionGPS;
     short int cantidadSurtidores;
-    surtidor *Surtidores;
+    surtidor* Surtidores;
     float tanque[3][3] = {{0,1,2},{0,0,0},{0,0,0}};
 public://Metodos
     estacion(string _nombre,string _identificador,string _gerente, string _region,string _ubicacionGPS);//Constructor
@@ -25,6 +27,8 @@ public://Metodos
     void capacidadTanque();
     void eliminarSurtidor(string _codigoIdentificador);
     void consultarTransacciones();
+    void desactivarSurtidor(string _codigoIdentificador);
+    void cantidadesVendidas();
 };
 
 #endif // ESTACION_H

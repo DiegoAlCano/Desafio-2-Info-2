@@ -1,10 +1,7 @@
 #include "surtidor.h"
-#include <iostream>
-#include <string>
 #include "venta.h"
 #include "estacion.h"
-#include <stdlib.h>
-using namespace std;
+
 
 estacion::estacion(string _nombre,string _identificador,string _gerente, string _region,string _ubicacionGPS){
     nombre = _nombre;

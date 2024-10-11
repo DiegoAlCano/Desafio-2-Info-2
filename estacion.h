@@ -1,7 +1,7 @@
 #ifndef ESTACION_H
 #define ESTACION_H
 #include <iostream>
-#include <string.h>
+#include <string>
 #include <surtidor.h>
 using namespace std;
 

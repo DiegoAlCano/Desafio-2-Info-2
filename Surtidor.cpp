@@ -1,4 +1,6 @@
 #include "surtidor.h"
+#include <iostream>
+#include <string.h>
 #include "venta.h"
 using namespace std;
 
@@ -45,6 +47,10 @@ int surtidor::getCapacidad(){
     return capacidad;
 }
 
+int surtidor::getNumVentas(){
+    return numVentas;
+}
+
 void surtidor::mostrarVentas(){
     if(numVentas==0){
         cout<<"No hay ventas registradas"<<endl;
@@ -86,5 +92,4 @@ void surtidor::agregarVenta(const Venta& nuevaVenta) {
 
 surtidor::~surtidor(){
     delete[] ventas;
-    cout << "Memoria del arreglo de ventas liberada correctamente." << endl;
 }

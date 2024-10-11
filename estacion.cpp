@@ -1,6 +1,6 @@
 #include "surtidor.h"
 #include <iostream>
-#include <string.h>
+#include <string>
 #include "venta.h"
 #include "estacion.h"
 #include <stdlib.h>

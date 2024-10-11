@@ -1,7 +1,7 @@
 #ifndef ESTACION_H
 #define ESTACION_H
 #include <iostream>
-#include <string>
+#include <string.h>
 #include <surtidor.h>
 using namespace std;
 
@@ -19,10 +19,12 @@ private://Atributos
     float tanque[3][3] = {{0,1,2},{0,0,0},{0,0,0}};
 public://Metodos
     estacion(string _nombre,string _identificador,string _gerente, string _region,string _ubicacionGPS);//Constructor
+    estacion();
     ~estacion();//Destructor
     void agregarSurtidor(const surtidor& nuevoSurtidor);
     void capacidadTanque();
-//    void eliminarSurtidor();
+    void eliminarSurtidor(string _codigoIdentificador);
+    void consultarTransacciones();
 };
 
 #endif // ESTACION_H

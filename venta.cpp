@@ -1,4 +1,8 @@
+#include "surtidor.h"
+#include <iostream>
+#include <string.h>
 #include "venta.h"
+#include "estacion.h"
 
 Venta::Venta(string _fechaVenta, string _horaVenta, float _cantidadCombustibleVendido, string _categoriaCombustible,
              string _metodoPago, string _documentoCliente, unsigned int _cantidadDinero){
@@ -45,17 +49,9 @@ void Venta::setCantidadDinero(unsigned int _cantidadDinero){
 }
 
 Venta::~Venta(){
-    fechaVenta = "";
-    horaVenta = "";
-    cantidadCombustibleVendido = 0.0;
-    categoriaCombustible = "";
-    metodoPago = "";
-    documentoCliente = "";
-    cantidadDinero = 0;
 }
 
 void Venta::mostrarVenta(){
-    cout<<"INFORMACION DE LA VENTA"<<endl;
     cout<<"Fecha: "<<fechaVenta<<endl;
     cout<<"Hora: "<<horaVenta<<endl;
     cout<<"Cantidad de combustible vendido: "<<cantidadCombustibleVendido<<endl;
@@ -64,5 +60,3 @@ void Venta::mostrarVenta(){
     cout<<"Documento del cliente: "<<documentoCliente<<endl;
     cout<<"Valor de la venta: "<<cantidadDinero<<endl;
 }
-
-

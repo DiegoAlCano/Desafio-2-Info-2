@@ -1,6 +1,4 @@
 #include "surtidor.h"
-#include <iostream>
-#include <string.h>
 #include "venta.h"
 using namespace std;
 

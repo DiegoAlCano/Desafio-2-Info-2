@@ -81,4 +81,3 @@ void Venta::mostrarVenta(){
     cout<<"Documento del cliente: "<<documentoCliente<<endl;
     cout<<"Valor de la venta: "<<cantidadDinero<<endl;
 }
-

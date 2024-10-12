@@ -29,14 +29,20 @@ int main()
 
     estacion1.consultarTransacciones();
     estacion1.cantidadesVendidas();
+
     cout<<"Ingrese el codigo identificador del surtidor: ";
     cin>>id;
     estacion1.eliminarSurtidor(id);
+
 
     cout<<"Ingrese el codigo identificador del surtidor: ";
     cin>>id;
     estacion1.desactivarSurtidor(id);
     estacion1.consultarTransacciones();
 
+    estacion1.realizarVenta();
+    estacion1.consultarTransacciones();
+
     return 0;
+
 }

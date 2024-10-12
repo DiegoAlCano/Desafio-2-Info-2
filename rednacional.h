@@ -12,16 +12,20 @@ private://Atributos
     estacion *Norte;
     estacion *Sur;
     estacion *Centro;
-    int *precioNorte;
-    int *precioSur;
-    int *precioCentro;
+    unsigned int *precioNorte;
+    unsigned int *precioSur;
+    unsigned int *precioCentro;
+    short int capacidadEstaciones = 0;
+    short int estacionesNorte = 0;
+    short int estacionesSur = 0;
+    short int estacionesCentro = 0;
 
 public:
     redNacional();//constructor por defecto
     redNacional(string);//constructor
     void agregarEstacion(estacion,string);
     void eliminarEstacion(estacion,string);
-    void establecerPrecio(int,int*&);
+    void establecerPrecio(unsigned int, unsigned int&);
     void calcularVentas();
     ~redNacional();//Destructor
 };

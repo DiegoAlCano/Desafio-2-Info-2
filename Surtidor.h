@@ -20,7 +20,7 @@ private://Atributos
 public://Metodos
     surtidor(string, string, bool);//Constructor
     surtidor();
-    ~surtidor();//Destructor
+    //~surtidor();//Destructor
 
     string getCodigoIdentificador();
     Venta* getVentas();

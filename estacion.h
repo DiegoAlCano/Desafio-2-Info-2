@@ -28,10 +28,17 @@ public://Metodos
     void capacidadTanque();
     void eliminarSurtidor(string _codigoIdentificador);
     void consultarTransacciones();
-    void desactivarSurtidor(string _codigoIdentificador);
+    void modificarSurtidor(string _codigoIdentificador);
+    void activarSurtidor(string _codigoIdentificador);
     void cantidadesVendidas();
     void realizarVenta();
-//    void menuEstacion();
+    string getRegion();
+    void mostrarInformacion()const;
+    // Sobrecarga del operador ==
+    bool operator==(const estacion& otraEstacion) const {
+        return (nombre == otraEstacion.nombre && identificador == otraEstacion.identificador);
+    }
+
 };
 
 #endif // ESTACION_H

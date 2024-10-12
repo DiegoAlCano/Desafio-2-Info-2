@@ -41,35 +41,31 @@ void estacion::agregarSurtidor(const surtidor& nuevoSurtidor){
 void estacion::eliminarSurtidor(string _codigoIdentificador){
 
     string id;
-    bool encontrado=false;
+    bool encontrado = false;
 
-    for(int i=0;i<cantidadSurtidores;i++){
+    for (int i = 0; i < cantidadSurtidores; i++) {
         id = Surtidores[i].getCodigoIdentificador();
-        if(id ==_codigoIdentificador){
+        if (id == _codigoIdentificador) {
             encontrado = true;
-            Surtidores[i].~surtidor();
-            for(int k=i;k<cantidadSurtidores-1;k++){
-                Surtidores[k]=Surtidores[k+1];
+            // Mover los surtidores hacia atrás en el arreglo
+            for (int k = i; k < cantidadSurtidores - 1; k++) {
+                Surtidores[k] = Surtidores[k + 1];
             }
-            Surtidores[cantidadSurtidores].~surtidor();
-            i = cantidadSurtidores;
+            cantidadSurtidores--; // Reducir la cantidad de surtidores
+            break; // Salir del bucle una vez encontrado
         }
     }
 
-    if(encontrado){
-        cantidadSurtidores--;
-
-        cout<<"Surtidor eliminado"<<endl;
-        cout<<endl;
-    }
-
-    else{
-        cout<<"El codigo ingresado no pertenece a un surtidor de la estacion"<<endl;
-        cout<<endl;
+    if (encontrado) {
+        cout << "Surtidor eliminado" << endl;
+        cout << endl;
+    } else {
+        cout << "El codigo ingresado no pertenece a un surtidor de la estacion" << endl;
+        cout << endl;
     }
 }
 
-void estacion::desactivarSurtidor(string _codigoIdentificador){
+void estacion::modificarSurtidor(string _codigoIdentificador){
     string id;
     bool encontrado = false;
 
@@ -229,6 +225,19 @@ void estacion::realizarVenta(){
     cout<<endl;
 }
 
+string estacion::getRegion()
+{
+    return region;
+}
+
+void estacion::mostrarInformacion() const {
+    cout << "Nombre: " << nombre << endl;
+    cout << "Codigo: " << identificador << endl;
+    cout << "Responsable: " << gerente << endl;
+    cout << "Region: " << region << endl;
+    cout << "Ubicacion GPS: " << ubicacionGPS << endl;
+}
+
 estacion::~estacion(){
-    delete[] Surtidores;
+   //delete[] Surtidores;
 }

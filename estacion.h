@@ -18,17 +18,20 @@ private://Atributos
     string ubicacionGPS;
     short int cantidadSurtidores;
     surtidor* Surtidores;
-    float tanque[3][3] = {{0,1,2},{0,0,0},{0,0,0}};
+    float tanque[6] = {0,0,0,0,0,0};
 public://Metodos
     estacion(string _nombre,string _identificador,string _gerente, string _region,string _ubicacionGPS);//Constructor
     estacion();
     ~estacion();//Destructor
+
     void agregarSurtidor(const surtidor& nuevoSurtidor);
     void capacidadTanque();
     void eliminarSurtidor(string _codigoIdentificador);
     void consultarTransacciones();
     void desactivarSurtidor(string _codigoIdentificador);
     void cantidadesVendidas();
+    void realizarVenta();
+//    void menuEstacion();
 };
 
 #endif // ESTACION_H

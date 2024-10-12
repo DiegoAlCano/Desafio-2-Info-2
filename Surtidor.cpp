@@ -8,7 +8,7 @@ surtidor::surtidor(){
     codigoIdentificador = "";
     modelo = "";
     activo = false;
-    capacidad = 0;
+    capacidad = 15;
     numVentas = 0;
     ventas = new Venta[capacidad];
 }
@@ -90,6 +90,6 @@ void surtidor::agregarVenta(const Venta& nuevaVenta) {
     numVentas++;
 }
 
-surtidor::~surtidor(){
+/*surtidor::~surtidor(){
     delete[] ventas;
-}
+}*/

@@ -22,6 +22,11 @@ public:
 
     void setCantidadCombustibleVendido(float _cantidadCombustibleVendido);
     void setCantidadDinero(unsigned int _cantidadDinero);
+    void setFechaVenta(string _fechaVenta);
+    void setHoraVenta(string _horaVenta);
+    void setCategoriaCombustible(string _categoriaCombustible);
+    void setDocumentoCliente(string _documentoCliente);
+    void setMetodoPago(string _metodoPago);
 
     void mostrarVenta();
 

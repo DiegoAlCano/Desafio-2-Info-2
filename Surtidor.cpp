@@ -90,6 +90,7 @@ void surtidor::agregarVenta(const Venta& nuevaVenta) {
     numVentas++;
 }
 
-/*surtidor::~surtidor(){
+surtidor::~surtidor(){
     delete[] ventas;
-}*/
+}
+

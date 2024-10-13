@@ -26,13 +26,45 @@ redNacional::redNacional(string _nombre)
 
 void redNacional::agregarEstacion(estacion nuevaEstacion)
 {
-    if (cantidadEstaciones == capacidadEstaciones) {
-        redimensionar(Estaciones,capacidadEstaciones,cantidadEstaciones);
-    }
-    Estaciones[cantidadEstaciones] = nuevaEstacion;
-    cantidadEstaciones++;
-    cout<< "La estacion fue agregada correctamente."<< endl;
+    bool Duplicada = false;
+    for(int i = 0;i < cantidadEstaciones;i++){
+        if(Estaciones[i].getUbicacionGPS() == nuevaEstacion.getUbicacionGPS()){
+            cout << endl;
+            cout << endl;
+            cout << endl;
+            cout << endl;
+            cout<< "Ya encuentra agregada una estacion en esa ubicacion GPS"<< endl;
+            cout << endl;
+            cout << endl;
+            cout << endl;
+            cout << endl;
+            Duplicada = true;
+            break;
+        }
+        else if(Estaciones[i].getIdentificador() == nuevaEstacion.getIdentificador()){
+            cout << endl;
+            cout << endl;
+            cout << endl;
+            cout << endl;
+            cout<< "Ya encuentra agregada una estacion con ese identificador"<< endl;
+            cout << endl;
+            cout << endl;
+            cout << endl;
+            cout << endl;
+            Duplicada = true;
+            break;
+        }
 
+    }
+    if(!Duplicada){
+        if (cantidadEstaciones == capacidadEstaciones) {
+            redimensionar(Estaciones,capacidadEstaciones,cantidadEstaciones);
+        }
+        Estaciones[cantidadEstaciones] = nuevaEstacion;
+        cantidadEstaciones++;
+        cout<< "La estacion fue agregada correctamente."<< endl;
+
+    }
 }
 
 void redNacional::eliminarEstacion(estacion estacionEliminar) {

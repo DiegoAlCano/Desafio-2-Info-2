@@ -70,7 +70,7 @@ void estacion::eliminarSurtidor(string _codigoIdentificador){
     }
 
     if (encontrado) {
-        cout << "Surtidor eliminado" << endl;
+        cout << "SURTIDOR ELIMINADO" << endl;
         cout << endl;
     } else {
         cout << "El codigo ingresado no pertenece a un surtidor de la estacion" << endl;

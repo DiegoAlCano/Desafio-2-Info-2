@@ -15,6 +15,17 @@ estacion::estacion(){
     cantidadSurtidores = 0;
     Surtidores = new surtidor[12];
 }
+estacion::estacion(string nombre1,string identificador1)
+{
+    nombre = nombre1;
+    identificador = identificador1;
+    gerente = "";
+    region = "";
+    ubicacionGPS = "";
+    cantidadSurtidores = 0;
+    Surtidores = new surtidor[12];
+
+}
 
 estacion::estacion(string _nombre,string _identificador,string _gerente, string _region,string _ubicacionGPS){
     nombre = _nombre;
@@ -34,7 +45,9 @@ void estacion::agregarSurtidor(const surtidor& nuevoSurtidor){
     else{
         Surtidores[cantidadSurtidores]= nuevoSurtidor;
         cantidadSurtidores++;
+        cout<< "El SURTIDOR se ha agregado correctamente."<< endl;
     }
+
 }
 
 
@@ -229,6 +242,19 @@ string estacion::getRegion()
 {
     return region;
 }
+string estacion::getNombre()
+{
+    return nombre;
+}
+
+string estacion::getIdentificador()
+{
+    return identificador;
+}
+string estacion::getUbicacionGPS()
+{
+    return ubicacionGPS;
+}
 
 surtidor* estacion::getSurtidores(){
     return Surtidores;
@@ -250,3 +276,4 @@ void estacion::mostrarInformacion() const {
 estacion::~estacion(){
     //delete[] Surtidores;
 }
+

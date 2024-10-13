@@ -26,12 +26,12 @@ redNacional::redNacional(string _nombre)
 
 void redNacional::agregarEstacion(estacion nuevaEstacion)
 {
-        if (cantidadEstaciones == capacidadEstaciones) {
-            redimensionar(Estaciones,capacidadEstaciones,cantidadEstaciones);
-        }
-        Estaciones[cantidadEstaciones] = nuevaEstacion;
-        cantidadEstaciones++;
-        cout<< "La estacion fue agregada correctamente."<< endl;
+    if (cantidadEstaciones == capacidadEstaciones) {
+        redimensionar(Estaciones,capacidadEstaciones,cantidadEstaciones);
+    }
+    Estaciones[cantidadEstaciones] = nuevaEstacion;
+    cantidadEstaciones++;
+    cout<< "La estacion fue agregada correctamente."<< endl;
 
 }
 
@@ -51,7 +51,7 @@ void redNacional::eliminarEstacion(estacion estacionEliminar) {
     }
 
     if(encontrado == false){
-        cout << "La estación no se encontra registrada." << endl;
+        cout << "La estación no se encuentra registrada." << endl;
     }
 }
 
@@ -62,7 +62,7 @@ void redNacional::mostrarEstaciones() const {
     cout<<"-----------------------------" << endl;
     cout << "Numero de estaciones a nivel Nacional: "<< cantidadEstaciones<< endl;
     for (int i = 0; i < cantidadEstaciones; i++) {
-        Estaciones[i].mostrarInformacion(); 
+        Estaciones[i].mostrarInformacion();
     }
     cout<<"-----------------------------" << endl;
 }
@@ -159,6 +159,21 @@ void redNacional::redimensionar(estacion*& arreglo, unsigned short int& capacida
     delete[] arreglo;
     arreglo = nuevoArreglo;
     capacidadEstaciones = nuevaCapacidad;
+}
+
+estacion redNacional::encontarEstacion(estacion estacion1)
+{
+    bool encontrada = false;
+    for(int i = 0; i < cantidadEstaciones; i++){
+        if(Estaciones[i]==estacion1 ){
+            return Estaciones[i];
+            encontrada = true;
+        }
+    }
+    if(encontrada == false ){
+        cout << "No hay un estacion registrada con el nombre y el identificador ingresados" << endl;
+    }
+
 }
 
 redNacional::~redNacional(){

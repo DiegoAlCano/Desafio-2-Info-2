@@ -88,7 +88,7 @@ void estacion::modificarSurtidor(string _codigoIdentificador){
             encontrado = true;
             Surtidores[i].setcambiarEstado();
             i = cantidadSurtidores;
-            cout<<"Surtidor desactivado"<<endl;
+            cout<<"El estado del surtidor a sido modificado"<<endl;
             cout<<endl;
         }
 

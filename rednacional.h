@@ -11,26 +11,24 @@ class redNacional
 {
 private://Atributos
     string nombre;
-    estacion *Norte;
-    estacion *Sur;
-    estacion *Centro;
-    unsigned int *precioNorte;
-    unsigned int *precioSur;
-    unsigned int *precioCentro;
+    estacion *Estaciones;
+    unsigned int precioNorte[3];
+    unsigned int precioSur[3];
+    unsigned int precioCentro[3];
     unsigned short int capacidadEstaciones = 0;
-    unsigned short int estacionesNorte = 0;
-    unsigned short int estacionesSur = 0;
-    unsigned short int estacionesCentro = 0;
+    unsigned short int cantidadEstaciones = 0;
 
 public:
 
     redNacional(string);//constructor
-    void agregarEstacion(estacion,string);
-    void eliminarEstacion(estacion,string);
+    void agregarEstacion(estacion);
+    void eliminarEstacion(estacion);
     void establecerPrecio(unsigned int, unsigned int&);
     void calcularVentas();
     void redimensionar(estacion*&, unsigned short int&, unsigned short int);
     void mostrarEstaciones() const;
+    void montoVentasNacional();
+    void fijarPreciosCombustible();
     ~redNacional();//Destructor
 };
 

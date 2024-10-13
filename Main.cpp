@@ -56,29 +56,17 @@ int main()
                     cout << "Ingrese el nombre del gerente: ";
                     getline(cin,gerente);
                     string region;
-
                     while(true){
-                        cout<<"1. Norte"<<endl;
-                        cout<<"2. Centro"<<endl;
-                        cout<<"3. Sur"<<endl;
-                        cout<<"Ingrese el numero de la region de la estacion: ";
-                        cin>>opc1;
-                        if(opc1 == 1){
-                            region = "Norte";
-                        }
-                        else if(opc1 == 2){
-                            region = "Centro";
-                        }
-                        else if(opc1 == 3){
-                            region = "Sur";
-                        }
-                        else {
-                            cout << "Entrada invalida. Por favor, ingrese una de las opciones permitidas." << endl;
-                        }
-
-                        if(opc1 == 1 or opc1 == 2 or opc1 ==3){
-                            cin.ignore();
+                        cout <<"Ingrese la region, SOLO SE PUEDE INGRESAR Norte, Sur o Centro tal como se ve en pantalla "<< endl;
+                        imprimirTabla("Norte");
+                        imprimirTabla("Centro");
+                        imprimirTabla("Sur");
+                        cout << "Ingrese la region: ";
+                        getline(cin, region);
+                        if (region == "Norte" || region == "Sur" || region == "Centro") {
                             break;
+                        } else {
+                            cout << "Entrada invalida. Por favor, ingrese una de las opciones permitidas." << endl;
                         }
 
                     }

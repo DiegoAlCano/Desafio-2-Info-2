@@ -7,85 +7,52 @@ redNacional::redNacional(string _nombre)
 {
     nombre = _nombre;
     capacidadEstaciones = 100;
-    Norte =  new estacion[capacidadEstaciones];
-    Sur = new estacion[capacidadEstaciones];
-    Centro = new estacion[capacidadEstaciones];
-    estacionesNorte = 0;
-    estacionesSur = 0;
-    estacionesCentro = 0;
-    precioNorte = nullptr;
-    precioSur = nullptr;
-    precioCentro = nullptr;
+    Estaciones =  new estacion[capacidadEstaciones];
+    cantidadEstaciones = 0;
+
+    precioNorte[0] = 13050;
+    precioNorte[1] = 17500;
+    precioNorte[2] = 21300;
+
+    precioSur[0] = 11600;
+    precioSur[1] = 16900;
+    precioSur[2] = 20100;
+
+    precioCentro[0] = 14500;
+    precioCentro[1] = 18300;
+    precioCentro[2] = 22400;
 
 }
 
-void redNacional::agregarEstacion(estacion nuevaEstacion,string regionEstacion)
+void redNacional::agregarEstacion(estacion nuevaEstacion)
 {
-    if(regionEstacion == "Norte"){
-        if (estacionesNorte == capacidadEstaciones) {
-            redimensionar(Norte,capacidadEstaciones,estacionesNorte);
+        if (cantidadEstaciones == capacidadEstaciones) {
+            redimensionar(Estaciones,capacidadEstaciones,cantidadEstaciones);
         }
-        Norte[estacionesNorte] =nuevaEstacion;
-        estacionesNorte++;
+        Estaciones[cantidadEstaciones] = nuevaEstacion;
+        cantidadEstaciones++;
         cout<< "La estacion fue agregada correctamente."<< endl;
-    }
-    else if(regionEstacion == "Sur"){
-        if (estacionesSur == capacidadEstaciones) {
-            redimensionar(Sur,capacidadEstaciones,estacionesSur);
-        }
-        Sur[estacionesSur] =nuevaEstacion;
-        estacionesSur++;
-        cout<< "La estacion fue agregada correctamente."<< endl;
-    }
-    else{
-        if (estacionesCentro == capacidadEstaciones) {
-            redimensionar(Centro,capacidadEstaciones,estacionesCentro);
-        }
-        Centro[estacionesCentro] =nuevaEstacion;
-        estacionesCentro++;
-        cout<< "La estacion fue agregada correctamente."<< endl;
-    }
+
 }
 
-void redNacional::eliminarEstacion(estacion estacionEliminar, string regionEstacion) {
-    if (regionEstacion == "Norte") {
-        for (int i = 0; i < estacionesNorte; i++) {
-            if (Norte[i] == estacionEliminar) {
-                for (int j = i; j < estacionesNorte - 1; j++) {
-                    Norte[j] = Norte[j + 1];  // Desplaza todas las estaciones una posición a la izquierda
-                }
-                estacionesNorte--;
-                cout << "La estacion ha sido eliminada correctamente." << endl;
-                return;
+void redNacional::eliminarEstacion(estacion estacionEliminar) {
+    bool encontrado = false;
+
+    for (int i = 0; i < cantidadEstaciones; i++) {
+        if (Estaciones[i] == estacionEliminar) {
+            encontrado = true;
+            for (int j = i; j < cantidadEstaciones - 1; j++) {
+                Estaciones[j] = Estaciones[j + 1];  // Desplaza todas las estaciones una posición a la izquierda
             }
-        }
-    }
-    else if (regionEstacion == "Sur") {
-        for (int i = 0; i < estacionesSur; i++) {
-            if (Sur[i] == estacionEliminar) {
-                for (int j = i; j < estacionesSur - 1; j++) {
-                    Sur[j] = Sur[j + 1];
-                }
-                estacionesSur--;
-                cout << "La estacion ha sido eliminada correctamente." << endl;
-                return;
-            }
-        }
-    }
-    else {  // Región Centro
-        for (int i = 0; i < estacionesCentro; i++) {
-            if (Centro[i] == estacionEliminar) {
-                for (int j = i; j < estacionesCentro - 1; j++) {
-                    Centro[j] = Centro[j + 1];
-                }
-                estacionesCentro--;
-                cout << "La estacion ha sido eliminada correctamente." << endl;
-                return;
-            }
+            cantidadEstaciones--;
+            cout << "La estacion ha sido eliminada correctamente." << endl;
+            return;
         }
     }
 
-    cout << "La estación no se encontra registrada." << endl;
+    if(encontrado == false){
+        cout << "La estación no se encontra registrada." << endl;
+    }
 }
 
 
@@ -93,29 +60,97 @@ void redNacional::eliminarEstacion(estacion estacionEliminar, string regionEstac
 void redNacional::mostrarEstaciones() const {
     // Imprimir estaciones en la región Norte
     cout<<"-----------------------------" << endl;
-    cout << "Estaciones en la region Norte: "<< estacionesNorte<< endl;
-    for (int i = 0; i < estacionesNorte; i++) {
-        Norte[i].mostrarInformacion(); // Supongo que tienes un método para mostrar la info en la clase 'estacion'
-    }
-    cout<<"-----------------------------" << endl;
-    // Imprimir estaciones en la región Sur
-    cout << "Estaciones en la region Sur: "<< estacionesSur << endl;
-    for (int i = 0; i < estacionesSur; i++) {
-        Sur[i].mostrarInformacion();
-    }
-    cout<<"-----------------------------" << endl;
-    // Imprimir estaciones en la región Centro
-    cout << "Estaciones en la region Centro: "<< estacionesCentro << endl;
-    for (int i = 0; i < estacionesCentro; i++) {
-        Centro[i].mostrarInformacion();
+    cout << "Numero de estaciones a nivel Nacional: "<< cantidadEstaciones<< endl;
+    for (int i = 0; i < cantidadEstaciones; i++) {
+        Estaciones[i].mostrarInformacion(); // Supongo que tienes un método para mostrar la info en la clase 'estacion'
     }
     cout<<"-----------------------------" << endl;
 }
 
+void redNacional::montoVentasNacional(){
+    unsigned long int montoRegular(0),montoPremium(0),montoEcoExtra(0),monto(0);
+    string tipoCombustible;
+    short int cantidadSurtidores(0);
+    int numVentas(0);
+
+    for(int i = 0; i<cantidadEstaciones;i++){
+        cantidadSurtidores = Estaciones[i].getCantidadSurtidores();
+        for(int k=0;k<cantidadSurtidores;k++){
+            numVentas = Estaciones[i].getSurtidores()[k].getNumVentas();
+            for(int w = 0;w<numVentas;w++){
+                tipoCombustible = Estaciones[i].getSurtidores()[k].getVentas()[w].getCategoriaCombustible();
+                monto =  Estaciones[i].getSurtidores()[k].getVentas()[w].getCantidadDinero();
+
+                if(tipoCombustible=="Regular"){
+                    montoRegular += monto;
+                }
+
+                else if(tipoCombustible=="Premium"){
+                    montoPremium += monto;
+                }
+
+                else{
+                    montoEcoExtra += monto;
+                }
+
+            }
+        }
+
+    }
+
+    cout<<"Monto total de ventas de combustible Regular: "<<montoRegular<<endl;
+    cout<<"Monto total de ventas de combustible Premium: "<<montoPremium<<endl;
+    cout<<"Monto total de ventas de combustible EcoExtra: "<<montoEcoExtra<<endl;
+    cout<<endl;
+
+
+}
+
+void redNacional::fijarPreciosCombustible(){
+    unsigned int precio = 0;
+
+    cout<<"Ingrese el precio de combustible Regular en la Region Norte: ";
+    cin>>precio;
+    precioNorte[0] = precio;
+
+    cout<<"Ingrese el precio de combustible Premium en la Region Norte: ";
+    cin>>precio;
+    precioNorte[1] = precio;
+
+    cout<<"Ingrese el precio de combustible EcoExtra en la Region Norte: ";
+    cin>>precio;
+    precioNorte[2] = precio;
+
+    cout<<"Ingrese el precio de combustible Regular en la Region Centro: ";
+    cin>>precio;
+    precioCentro[0] = precio;
+
+    cout<<"Ingrese el precio de combustible Premium en la Region Centro: ";
+    cin>>precio;
+    precioCentro[1] = precio;
+
+    cout<<"Ingrese el precio de combustible EcoExtra en la Region Centro: ";
+    cin>>precio;
+    precioCentro[2] = precio;
+
+    cout<<"Ingrese el precio de combustible Regular en la Region Sur: ";
+    cin>>precio;
+    precioSur[0] = precio;
+
+    cout<<"Ingrese el precio de combustible Premium en la Region Sur: ";
+    cin>>precio;
+    precioSur[1] = precio;
+
+    cout<<"Ingrese el precio de combustible EcoExtra en la Region Sur: ";
+    cin>>precio;
+    precioSur[2] = precio;
+}
+
+
 void redNacional::redimensionar(estacion*& arreglo, unsigned short int& capacidadEstaciones,unsigned short int estaciones)
 {
 
-    int nuevaCapacidad = capacidadEstaciones + 10;
+    int nuevaCapacidad = capacidadEstaciones + 50;
     estacion* nuevoArreglo = new estacion[nuevaCapacidad];
     for(int i= 0;i < estaciones;i++)
     {
@@ -127,7 +162,5 @@ void redNacional::redimensionar(estacion*& arreglo, unsigned short int& capacida
 }
 
 redNacional::~redNacional(){
-    delete[] Norte;
-    delete[] Sur;
-    delete[] Centro;
+    delete[] Estaciones;
 }

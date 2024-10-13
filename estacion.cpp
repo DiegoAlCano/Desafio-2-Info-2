@@ -230,6 +230,13 @@ string estacion::getRegion()
     return region;
 }
 
+surtidor* estacion::getSurtidores(){
+    return Surtidores;
+}
+
+short int estacion::getCantidadSurtidores(){
+    return cantidadSurtidores;
+}
 void estacion::mostrarInformacion() const {
     cout << "Nombre: " << nombre << endl;
     cout << "Codigo: " << identificador << endl;
@@ -239,5 +246,5 @@ void estacion::mostrarInformacion() const {
 }
 
 estacion::~estacion(){
-   //delete[] Surtidores;
+    //delete[] Surtidores;
 }

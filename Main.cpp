@@ -16,7 +16,7 @@ int main()
     cin>> nombre;
     redNacional pais(nombre);
 
-    string mensaje = " Bienvenido a la red nacional de gasolineras";
+    string mensaje = " Bienvenido a la red nacional de gasolineras de: " + nombre;
     imprimirTabla(mensaje);
     unsigned short int opc;
     do {

@@ -6,6 +6,9 @@
 #include "rednacional.h"
 using namespace std;
 
+void imprimirTabla(const string& mensaje);
+
+
 int main()
 {
     string nombre;
@@ -13,44 +16,96 @@ int main()
     cin>> nombre;
     redNacional pais(nombre);
 
-    estacion estacion1("La Grande","5840","Diego","Centro","13975449076");
-    surtidor surtidor1("ABC123", "ModeloX", true);
-    surtidor surtidor2("ABC321","MODELY",true);
-    surtidor surtidor3("ABC312","MODELZ",true);
-    Venta venta1("9/10/2024","9:28",3.4,"Regular","Efectivo","1002969042",666);
-    Venta venta2("9/10/2024","10:28",1.5,"Premium","Efectivo","11112969042",30000);
-    Venta venta3("10/10/2024","7:31",3,"EcoExtra","Efectivo","1002969042",50000);
-    Venta venta4("11/10/2024","12:16",3,"EcoExtra","Efectivo","103681573",50000);
+    string mensaje = " Bienvenido a la red nacional de gasolineras";
+    imprimirTabla(mensaje);
+    unsigned short int opc;
+    do {
+        string mensaje2 = "M E N U";
+        imprimirTabla(mensaje2);
+        cout << " 1 Agregar una estacion"<< endl;
+        cout << " 2 Eliminar una estacion"<< endl;
+        cout << " 3 Calcular el monto total de las ventas en cada E/S del pais, discriminado por categoría de combustible."<< endl;
+        cout << " 4 Fijar los precios del combustible para toda la red."<< endl;
+        cout << " 5 Agregar un surtidor a una estacion"<< endl;
+        cout << " 6 Eliminar un surtidor de una  estacion"<< endl;
+        cout << " 7 Activar un surtidor de una estacion"<< endl;
+        cout << " 8 Desactivar un surtidor de una estacion"<< endl;
+        cout << " 9 Consultar el historico de transacciones de cada surtidor de la E/S"<< endl;
+        cout << " 10 Reportar la cantidad la cantidad de litros vendidos segun cada categoria de combustible" << endl;
+        cout << " 11 Simular una venta de combustible"<< endl;
+        cout << "12 Salir" << endl;
+        cout << "ELIGA LA OPCION QUE DESEE: "<< endl;
+        cin >> opc;
 
-    surtidor1.agregarVenta(venta1);
-    surtidor1.agregarVenta(venta4);
-    surtidor3.agregarVenta(venta2);
-    surtidor2.agregarVenta(venta3);
+        switch (opc) {
+        case 1:
+        {
+            cout << "Ha seleccionado la opcion  AGREGAR UNA ESTACION "<< endl;
+            string nombre1;
+            cout << "Ingrese el nombre de la estacion: ";
+            cin.ignore();
+            getline(cin,nombre1);
+            string codigo;
+            cout << "Ingrese el codigo identificador: ";
+            getline(cin,codigo);
+            string gerente;
+            cout << "Ingrese el nombre del gerente: ";
+            getline(cin,gerente);
+            string region;
+            while(true){
+                cout <<"Ingrese la region, SOLO SE PUEDE INGRESAR Norte, Sur o Centro: ";
+                getline(cin, region);
+                if (region == "Norte" || region == "Sur" || region == "Centro") {
+                    break;
+                } else {
+                    cout << "Entrada invalida. Por favor, ingrese una de las opciones permitidas." << endl;
+                }
 
-    estacion1.agregarSurtidor(surtidor1);
-    estacion1.agregarSurtidor(surtidor2);
-    estacion1.agregarSurtidor(surtidor3);
-    estacion1.capacidadTanque();
-    string infoRegion = estacion1.getRegion();
-    pais.agregarEstacion(estacion1);
-    //segunda estacion
-    estacion estacion2("La Grande2","5840","Diego2","Norte","13975449076");
-    surtidor surtidor4("ABC123", "ModeloX", true);
-    surtidor surtidor5("ABC321","MODELY",true);
-    surtidor surtidor6("ABC312","MODELZ",true);
-    estacion2.agregarSurtidor(surtidor4);
-    estacion2.agregarSurtidor(surtidor5);
-    estacion2.agregarSurtidor(surtidor6);
-    estacion2.capacidadTanque();
-    string infoRegion2 = estacion2.getRegion();
-    pais.agregarEstacion(estacion2);
-    pais.mostrarEstaciones();
-    pais.eliminarEstacion(estacion2);
-    pais.mostrarEstaciones();
+            }
+            region;
+            string ubicacionGPS;
+            cout << "Ingrese la ubicacion la Ubicacion GPS: ";
+            getline(cin,ubicacionGPS);
+            estacion estacion1(nombre1,codigo,gerente,region,ubicacionGPS);
+            pais.agregarEstacion(estacion1);
+            pais.mostrarEstaciones();
 
-    pais.montoVentasNacional();
+            break;
+        }
+        case 2:
+        {
+            cout << "Opción 2 seleccionada.\n";
+            break;
+        }
+        case 3:
+        {
+            cout << "Opción 3 seleccionada.\n";
+            break;
+        }
+        case 4:
+        {
+            cout << "Opcion 4 seleccionada. \n";
+            break;
+        }
+        default:
+            cout << "Opción no válida.\n";
+            break;
+        }
 
-    pais.fijarPreciosCombustible();
+        cout << endl;
+
+    } while (opc != 12);  // El ciclo continúa hasta que el usuario elija salir
 
     return 0;
+}
+
+void imprimirTabla(const string& mensaje) {
+    int ancho = mensaje.length() + 4; // Calcular el ancho de la tabla con espacio adicional
+    string lineaHorizontal(ancho, '-'); // Crear una línea horizontal
+
+    cout << "+" << lineaHorizontal << "+" << endl;
+    cout << "|  " << mensaje << "  |" << endl;
+    cout << "+" << lineaHorizontal << "+" << endl;
+
+
 }

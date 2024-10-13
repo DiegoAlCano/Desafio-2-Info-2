@@ -58,11 +58,11 @@ void redNacional::eliminarEstacion(estacion estacionEliminar) {
 
 
 void redNacional::mostrarEstaciones() const {
-    // Imprimir estaciones en la región Norte
+
     cout<<"-----------------------------" << endl;
     cout << "Numero de estaciones a nivel Nacional: "<< cantidadEstaciones<< endl;
     for (int i = 0; i < cantidadEstaciones; i++) {
-        Estaciones[i].mostrarInformacion(); // Supongo que tienes un método para mostrar la info en la clase 'estacion'
+        Estaciones[i].mostrarInformacion(); 
     }
     cout<<"-----------------------------" << endl;
 }

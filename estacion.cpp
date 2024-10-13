@@ -238,11 +238,13 @@ short int estacion::getCantidadSurtidores(){
     return cantidadSurtidores;
 }
 void estacion::mostrarInformacion() const {
+    cout << "--------------------------"<<endl;
     cout << "Nombre: " << nombre << endl;
     cout << "Codigo: " << identificador << endl;
     cout << "Responsable: " << gerente << endl;
     cout << "Region: " << region << endl;
     cout << "Ubicacion GPS: " << ubicacionGPS << endl;
+    cout << "--------------------------"<<endl;
 }
 
 estacion::~estacion(){

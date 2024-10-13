@@ -37,4 +37,4 @@ public:
           string _metodoPago, string documentoCliente, unsigned int _cantidadDinero); //Constructor por defectos
 };
 
-#endif // VENTA_H 
+#endif // VENTA_H

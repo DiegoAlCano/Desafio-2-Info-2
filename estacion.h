@@ -24,6 +24,9 @@ public://Metodos
     estacion();
     ~estacion();//Destructor
 
+    string getRegion();
+    short int getCantidadSurtidores();
+    surtidor* getSurtidores();
     void agregarSurtidor(const surtidor& nuevoSurtidor);
     void capacidadTanque();
     void eliminarSurtidor(string _codigoIdentificador);
@@ -32,8 +35,8 @@ public://Metodos
     void activarSurtidor(string _codigoIdentificador);
     void cantidadesVendidas();
     void realizarVenta();
-    string getRegion();
     void mostrarInformacion()const;
+    void menuEstacion();
     // Sobrecarga del operador ==
     bool operator==(const estacion& otraEstacion) const {
         return (nombre == otraEstacion.nombre && identificador == otraEstacion.identificador);

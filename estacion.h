@@ -22,8 +22,11 @@ private://Atributos
 public://Metodos
     estacion(string _nombre,string _identificador,string _gerente, string _region,string _ubicacionGPS);//Constructor
     estacion();
+    estacion(string nombre1,string identificador1);
     ~estacion();//Destructor
-
+    string getNombre();
+    string getIdentificador();
+    string getUbicacionGPS();
     string getRegion();
     short int getCantidadSurtidores();
     surtidor* getSurtidores();
@@ -32,11 +35,9 @@ public://Metodos
     void eliminarSurtidor(string _codigoIdentificador);
     void consultarTransacciones();
     void modificarSurtidor(string _codigoIdentificador);
-    void activarSurtidor(string _codigoIdentificador);
     void cantidadesVendidas();
     void realizarVenta();
     void mostrarInformacion()const;
-    void menuEstacion();
     // Sobrecarga del operador ==
     bool operator==(const estacion& otraEstacion) const {
         return (nombre == otraEstacion.nombre && identificador == otraEstacion.identificador);

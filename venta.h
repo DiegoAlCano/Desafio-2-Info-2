@@ -9,14 +9,14 @@ class Venta
 private:
     string fechaVenta;
     string horaVenta;
-    float cantidadCombustibleVendido;
+    short unsigned int cantidadCombustibleVendido;
     string categoriaCombustible;
     string metodoPago;
     string documentoCliente;
     unsigned int cantidadDinero;
 public:
 
-    float getCantidadCombustibleVendido() const;
+    short unsigned int getCantidadCombustibleVendido() const;
     string getCategoriaCombustible() const;
     unsigned int getCantidadDinero() const;
 

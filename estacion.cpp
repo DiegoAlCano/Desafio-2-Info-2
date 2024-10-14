@@ -4,6 +4,7 @@
 #include "venta.h"
 #include "estacion.h"
 #include <stdlib.h>
+#include "rednacional.h"
 using namespace std;
 
 estacion::estacion(){
@@ -70,7 +71,7 @@ void estacion::eliminarSurtidor(string _codigoIdentificador){
     }
 
     if (encontrado) {
-        cout << "SURTIDOR ELIMINADO" << endl;
+        cout << "Surtidor eliminado" << endl;
         cout << endl;
     } else {
         cout << "El codigo ingresado no pertenece a un surtidor de la estacion" << endl;
@@ -88,7 +89,7 @@ void estacion::modificarSurtidor(string _codigoIdentificador){
             encontrado = true;
             Surtidores[i].setcambiarEstado();
             i = cantidadSurtidores;
-            cout<<"El estado del surtidor a sido modificado"<<endl;
+            cout<<"Surtidor desactivado"<<endl;
             cout<<endl;
         }
 
@@ -144,98 +145,19 @@ void estacion::capacidadTanque(){
     }
 }
 
-void estacion::realizarVenta(){
+void estacion::actualizarDisponible(short unsigned int _cantidadVendida, string _tipoCombustible){
 
-    string texto, textoAux;
-    float combustibleVendido;
-    unsigned int valorVenta;
-    char tipo;
-    Venta nuevaVenta;
-
-    cout<<"Ingrese el dia de la venta: ";
-    cin>>textoAux;
-    texto += textoAux;
-    texto += '/';
-    cout<<"Ingrese el mes de la venta: ";
-    cin>>textoAux;
-    texto += textoAux;
-    texto += '/';
-    cout<<"Ingrese el anio de la venta: ";
-    cin>>textoAux;
-    texto += textoAux;
-
-    nuevaVenta.setFechaVenta(texto);
-    texto="";
-
-    cout<<"Ingrese la hora del dia de la venta: ";
-    cin>>textoAux;
-    texto += textoAux;
-    texto += ':';
-    cout<<"Ingrese el minuto del dia de la venta: ";
-    cin>>textoAux;
-    texto += textoAux;
-
-    nuevaVenta.setHoraVenta(texto);
-    texto = "";
-
-    cout<<"Ingrese la cantidad de combustible vendida: ";
-    cin>>combustibleVendido;
-
-    nuevaVenta.setCantidadCombustibleVendido(combustibleVendido);
-
-    cout<<"Ingrese 1 para tipo de combustible Regular"<<endl;
-    cout<<"Ingrese 2 para tipo de combustible Premium"<<endl;
-    cout<<"Ingrese 3 para tipo de combustible EcoExtra"<<endl;
-    cout<<"Tipo de combustible: ";
-    cin>>tipo;
-
-    if(tipo=='1'){
-        nuevaVenta.setCategoriaCombustible("Regular");
-    }
-    else if(tipo=='2'){
-        nuevaVenta.setCategoriaCombustible("Premium");
-    }
-    else{
-        nuevaVenta.setCategoriaCombustible("EcoExtra");
+    if(_tipoCombustible=="Regular"){
+        tanque[3] -= _cantidadVendida;
     }
 
-    cout<<"Ingrese 1 para metodo de pago Efectivo"<<endl;
-    cout<<"Ingrese 2 para metodo de pago TDebito"<<endl;
-    cout<<"Ingrese 3 para metodo de pago TCredito"<<endl;
-    cout<<"Metodo de Pago: ";
-    cin>>tipo;
-
-    if(tipo=='1'){
-        nuevaVenta.setMetodoPago("Efectivo");
-    }
-    else if(tipo=='2'){
-        nuevaVenta.setMetodoPago("TDebito");
-    }
-    else{
-        nuevaVenta.setMetodoPago("TCredito");
+    else if(_tipoCombustible=="Premium"){
+        tanque[4] -= _cantidadVendida;
     }
 
-    cout<<"Ingrese el numero de documento del cliente: ";
-    cin>>textoAux;
-
-    nuevaVenta.setDocumentoCliente(textoAux);
-
-    cout<<"Ingrese el valor de la venta: ";
-    cin>>valorVenta;
-
-    nuevaVenta.setCantidadDinero(valorVenta);
-
-    cout<<"Ingrese el codigo identificador del surtidor que realizo la venta: ";
-    cin>>textoAux;
-
-    for(int i = 0;i<cantidadSurtidores;i++){
-        texto = Surtidores[i].getCodigoIdentificador();
-        if(texto==textoAux){
-            Surtidores[i].agregarVenta(nuevaVenta);
-            cout<<"Venta ingresada exitosamente"<<endl;
-        }
+    else if(_tipoCombustible=="EcoExtra"){
+        tanque[5] -= _cantidadVendida;
     }
-    cout<<endl;
 }
 
 string estacion::getRegion()
@@ -273,7 +195,143 @@ void estacion::mostrarInformacion() const {
     cout << "--------------------------"<<endl;
 }
 
+void estacion::simularVenta(redNacional& red){
+
+    unsigned short int surt = 0;
+    string texto, textoAux;
+    short unsigned int combustibleVendido;
+    unsigned int valorVenta=0;
+    short int tipo;
+    Venta nuevaVenta;
+
+    srand(time(NULL));
+
+    surt = rand() % cantidadSurtidores;
+
+    cout<<"Ingrese el dia de la venta: ";
+    cin>>textoAux;
+    texto += textoAux;
+    texto += '/';
+    cout<<"Ingrese el mes de la venta: ";
+    cin>>textoAux;
+    texto += textoAux;
+    texto += '/';
+    cout<<"Ingrese el anio de la venta: ";
+    cin>>textoAux;
+    texto += textoAux;
+
+    nuevaVenta.setFechaVenta(texto);
+    texto="";
+
+    cout<<"Ingrese la hora del dia de la venta: ";
+    cin>>textoAux;
+    texto += textoAux;
+    texto += ':';
+    cout<<"Ingrese el minuto del dia de la venta: ";
+    cin>>textoAux;
+    texto += textoAux;
+
+    nuevaVenta.setHoraVenta(texto);
+    texto = "";
+
+    while(true){
+        cout<<"Ingrese 1 para tipo de combustible Regular"<<endl;
+        cout<<"Ingrese 2 para tipo de combustible Premium"<<endl;
+        cout<<"Ingrese 3 para tipo de combustible EcoExtra"<<endl;
+        cout<<"Tipo de combustible: ";
+        cin>>tipo;
+
+        if (cin.fail()) {
+            cin.clear(); // Limpiar el error de entrada
+            cin.ignore(1000, '\n'); // Ignorar la entrada inválida
+            cout << "Tipo de combustible invalido. Intente de nuevo" << endl;
+        }
+
+        combustibleVendido = (rand() % 20) + 3;
+        if(combustibleVendido>tanque[tipo+2]){
+            combustibleVendido = tanque[tipo+2];
+        }
+
+        tanque[tipo+2]-=combustibleVendido;
+
+        cout<<"Litros de combustible vendido: "<<combustibleVendido<<endl;
+
+        nuevaVenta.setCantidadCombustibleVendido(combustibleVendido);
+
+
+        if(tipo==1){
+            nuevaVenta.setCategoriaCombustible("Regular");
+        }
+        else if(tipo==2){
+            nuevaVenta.setCategoriaCombustible("Premium");
+        }
+        else if(tipo==3){
+            nuevaVenta.setCategoriaCombustible("EcoExtra");
+        }
+
+        if(region=="Norte"){
+            valorVenta = combustibleVendido*red.getPreciosCombustible()[tipo-1];
+        }
+        else if(region == "Centro"){
+            valorVenta = combustibleVendido*red.getPreciosCombustible()[tipo+2];
+        }
+        else if(region=="Sur"){
+            valorVenta = combustibleVendido*red.getPreciosCombustible()[tipo+5];
+        }
+
+        if(tipo == 1 or tipo == 2 or tipo ==3){
+            cout<<"Valor de la venta: "<<valorVenta<<endl;
+            nuevaVenta.setCantidadDinero(valorVenta);
+            break;
+        }
+
+        else{
+            cout<<"Tipo de Combustible invalido.Intente de nuevo"<<endl;
+        }
+    }
+
+    while(true){
+        cout<<"Ingrese 1 para metodo de pago Efectivo"<<endl;
+        cout<<"Ingrese 2 para metodo de pago TDebito"<<endl;
+        cout<<"Ingrese 3 para metodo de pago TCredito"<<endl;
+        cout<<"Metodo de Pago: ";
+        cin>>tipo;
+
+        if(cin.fail()){
+            cin.clear(); // Limpiar el error de entrada
+            cin.ignore(1000, '\n'); // Ignorar la entrada inválida
+            cout << "Tipo de metodo de pago invalido. Intente de nuevo" << endl;
+        }
+
+        else if(tipo==1){
+            nuevaVenta.setMetodoPago("Efectivo");
+            break;
+        }
+        else if(tipo==2){
+            nuevaVenta.setMetodoPago("TDebito");
+            break;
+        }
+        else if(tipo==3){
+            nuevaVenta.setMetodoPago("TCredito");
+            break;
+        }
+
+        else{
+            cout<<"Metodo de pago invalido.Intente de nuevo"<<endl;
+        }
+
+    }
+
+    cout<<"Ingrese el numero de documento del cliente: ";
+    cin>>textoAux;
+
+    nuevaVenta.setDocumentoCliente(textoAux);
+
+    Surtidores[surt].agregarVenta(nuevaVenta);
+    cout<<"Venta agregada exitosamente"<<endl;
+    cout<<endl;
+}
+
 estacion::~estacion(){
     //delete[] Surtidores;
 }
-

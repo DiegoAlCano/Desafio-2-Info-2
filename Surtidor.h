@@ -15,7 +15,6 @@ private://Atributos
     int numVentas;     // Cantidad actual de ventas
     int capacidad;     // Capacidad actual del arreglo
     Venta* ventas;
-    void redimensionar();
 
 public://Metodos
     surtidor(string, string, bool);//Constructor
@@ -26,7 +25,7 @@ public://Metodos
     Venta* getVentas();
     int getCapacidad();
     int getNumVentas();
-
+    void redimensionar();
     void mostrarVentas();
     void setcambiarEstado();
     void agregarVenta(const Venta& nuevaVenta);

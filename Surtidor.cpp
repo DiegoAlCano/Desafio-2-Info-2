@@ -51,6 +51,10 @@ int surtidor::getNumVentas(){
     return numVentas;
 }
 
+bool surtidor::getActivo(){
+    return activo;
+}
+
 
 void surtidor::mostrarVentas(){
     if(numVentas==0){
@@ -94,3 +98,4 @@ void surtidor::agregarVenta(const Venta& nuevaVenta) {
 surtidor::~surtidor(){
     delete[] ventas;
 }
+

@@ -247,46 +247,47 @@ void estacion::simularVenta(redNacional& red){
             cout << "Tipo de combustible invalido. Intente de nuevo" << endl;
         }
 
-        combustibleVendido = (rand() % 20) + 3;
-        if(combustibleVendido>tanque[tipo+2]){
-            combustibleVendido = tanque[tipo+2];
-        }
-
-        tanque[tipo+2]-=combustibleVendido;
-
-        cout<<"Litros de combustible vendido: "<<combustibleVendido<<endl;
-
-        nuevaVenta.setCantidadCombustibleVendido(combustibleVendido);
-
-
-        if(tipo==1){
-            nuevaVenta.setCategoriaCombustible("Regular");
-        }
-        else if(tipo==2){
-            nuevaVenta.setCategoriaCombustible("Premium");
-        }
-        else if(tipo==3){
-            nuevaVenta.setCategoriaCombustible("EcoExtra");
-        }
-
-        if(region=="Norte"){
-            valorVenta = combustibleVendido*red.getPreciosCombustible()[tipo-1];
-        }
-        else if(region == "Centro"){
-            valorVenta = combustibleVendido*red.getPreciosCombustible()[tipo+2];
-        }
-        else if(region=="Sur"){
-            valorVenta = combustibleVendido*red.getPreciosCombustible()[tipo+5];
-        }
-
-        if(tipo == 1 or tipo == 2 or tipo ==3){
-            cout<<"Valor de la venta: "<<valorVenta<<endl;
-            nuevaVenta.setCantidadDinero(valorVenta);
-            break;
+        else if(tipo!=1 and tipo!=2 and tipo!=3){
+            cout<<"Tipo de Combustible invalido.Intente de nuevo"<<endl;
         }
 
         else{
-            cout<<"Tipo de Combustible invalido.Intente de nuevo"<<endl;
+            combustibleVendido = (rand() % 20) + 3;
+            if(combustibleVendido>tanque[tipo+2]){
+                combustibleVendido = tanque[tipo+2];
+            }
+
+            tanque[tipo+2]-=combustibleVendido;
+
+            cout<<"Litros de combustible vendido: "<<combustibleVendido<<endl;
+
+            nuevaVenta.setCantidadCombustibleVendido(combustibleVendido);
+
+
+            if(tipo==1){
+                nuevaVenta.setCategoriaCombustible("Regular");
+            }
+            else if(tipo==2){
+                nuevaVenta.setCategoriaCombustible("Premium");
+            }
+            else if(tipo==3){
+                nuevaVenta.setCategoriaCombustible("EcoExtra");
+            }
+
+            if(region=="Norte"){
+                valorVenta = combustibleVendido*red.getPreciosCombustible()[tipo-1];
+            }
+            else if(region == "Centro"){
+                valorVenta = combustibleVendido*red.getPreciosCombustible()[tipo+2];
+            }
+            else if(region=="Sur"){
+                valorVenta = combustibleVendido*red.getPreciosCombustible()[tipo+5];
+            }
+
+            cout<<"Valor de la venta: "<<valorVenta<<endl;
+            nuevaVenta.setCantidadDinero(valorVenta);
+            break;
+
         }
     }
 
@@ -330,6 +331,8 @@ void estacion::simularVenta(redNacional& red){
     Surtidores[surt].agregarVenta(nuevaVenta);
     cout<<"Venta agregada exitosamente"<<endl;
     cout<<endl;
+
+    nuevaVenta.mostrarVenta();
 }
 
 estacion::~estacion(){

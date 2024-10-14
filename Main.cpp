@@ -61,11 +61,11 @@ int main()
     unsigned short int opc;
     do {
         imprimirTabla("M E N U");
-        cout << " 1 Gestion de red "<< endl;
-        cout << " 2 Gestion de estacion de servicio"<< endl;
-        cout << " 3 Verificacion de fugas"<< endl;
-        cout << " 4 Salir" << endl;
-        cout << "ELIGA LA OPCION QUE DESEE: "<< endl;
+        cout << " 1. Gestion de red "<< endl;
+        cout << " 2. Gestion de estacion de servicio"<< endl;
+        cout << " 3. Verificacion de fugas"<< endl;
+        cout << " 4. Salir" << endl;
+        cout << "ELIGA LA OPCION QUE DESEE: ";
         cin >> opc;
 
         switch (opc) {
@@ -75,12 +75,12 @@ int main()
             do{
 
                 imprimirTabla("GESTION DE RED");
-                cout << " 1 Agregar una estacion"<< endl;
-                cout << " 2 Eliminar una estacion"<< endl;
-                cout << " 3 Calcular el monto total de las ventas en cada E/S del pais, discriminado por categoria de combustible."<< endl;
-                cout << " 4 Fijar los precios del combustible para toda la red."<< endl;
-                cout << " 5 Volver al MENU anterior" << endl;
-                cout << "ELIGA LA OPCION QUE DESEE: "<< endl;
+                cout << " 1. Agregar una estacion"<< endl;
+                cout << " 2. Eliminar una estacion"<< endl;
+                cout << " 3. Calcular el monto total de las ventas en cada E/S del pais, discriminado por categoria de combustible."<< endl;
+                cout << " 4. Fijar los precios del combustible para toda la red."<< endl;
+                cout << " 5. Volver al MENU anterior" << endl;
+                cout << "ELIGA LA OPCION QUE DESEE: ";
                 cin >> opc1;
                 switch (opc1) {
                 case 1:
@@ -169,15 +169,15 @@ int main()
             unsigned short int opc1;
             do{
                 imprimirTabla("GESTION DE ESTACION DE SERVICIO");
-                cout << " 1 Agregar un surtidor a una estacion"<< endl;
-                cout << " 2 Eliminar un surtidor de una  estacion"<< endl;
-                cout << " 3 Activar un surtidor de una estacion"<< endl;
-                cout << " 4 Desactivar un surtidor de una estacion"<< endl;
-                cout << " 5 Consultar el historico de transacciones de cada surtidor de la E/S"<< endl;
-                cout << " 6 Reportar la cantidad la cantidad de litros vendidos segun cada categoria de combustible" << endl;
-                cout << " 7 Simular una venta de combustible"<< endl;
-                cout << " 8 Volver al MENU anterior" << endl;
-                cout << "ELIGA LA OPCION QUE DESEE: "<< endl;
+                cout << " 1. Agregar un surtidor a una estacion"<< endl;
+                cout << " 2. Eliminar un surtidor de una  estacion"<< endl;
+                cout << " 3. Activar un surtidor de una estacion"<< endl;
+                cout << " 4. Desactivar un surtidor de una estacion"<< endl;
+                cout << " 5. Consultar el historico de transacciones de cada surtidor de la E/S"<< endl;
+                cout << " 6. Reportar la cantidad la cantidad de litros vendidos segun cada categoria de combustible" << endl;
+                cout << " 7. Simular una venta de combustible"<< endl;
+                cout << " 8. Volver al MENU anterior" << endl;
+                cout << "ELIGA LA OPCION QUE DESEE: ";
                 cin >> opc1;
 
                 switch (opc1) {

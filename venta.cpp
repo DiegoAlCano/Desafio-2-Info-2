@@ -29,7 +29,7 @@ Venta::Venta(){
     cantidadDinero=0;
 }
 
-float Venta::getCantidadCombustibleVendido() const{
+short unsigned int Venta::getCantidadCombustibleVendido() const{
     return cantidadCombustibleVendido;
 }
 

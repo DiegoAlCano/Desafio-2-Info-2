@@ -10,18 +10,22 @@ redNacional::redNacional(string _nombre)
     Estaciones =  new estacion[capacidadEstaciones];
     cantidadEstaciones = 0;
 
-    precioNorte[0] = 13050;
-    precioNorte[1] = 17500;
-    precioNorte[2] = 21300;
+    preciosCombustible[0] = 13050;
+    preciosCombustible[1] = 17500;
+    preciosCombustible[2] = 21300;
 
-    precioSur[0] = 11600;
-    precioSur[1] = 16900;
-    precioSur[2] = 20100;
+    preciosCombustible[3] = 11600;
+    preciosCombustible[4] = 16900;
+    preciosCombustible[5] = 20100;
 
-    precioCentro[0] = 14500;
-    precioCentro[1] = 18300;
-    precioCentro[2] = 22400;
+    preciosCombustible[6] = 14500;
+    preciosCombustible[7] = 18300;
+    preciosCombustible[8] = 22400;
 
+}
+
+unsigned int* redNacional::getPreciosCombustible(){
+    return preciosCombustible;
 }
 
 void redNacional::agregarEstacion(estacion nuevaEstacion)
@@ -143,39 +147,39 @@ void redNacional::fijarPreciosCombustible(){
 
     cout<<"Ingrese el precio de combustible Regular en la Region Norte: ";
     cin>>precio;
-    precioNorte[0] = precio;
+    preciosCombustible[0] = precio;
 
     cout<<"Ingrese el precio de combustible Premium en la Region Norte: ";
     cin>>precio;
-    precioNorte[1] = precio;
+    preciosCombustible[1] = precio;
 
     cout<<"Ingrese el precio de combustible EcoExtra en la Region Norte: ";
     cin>>precio;
-    precioNorte[2] = precio;
+    preciosCombustible[2] = precio;
 
     cout<<"Ingrese el precio de combustible Regular en la Region Centro: ";
     cin>>precio;
-    precioCentro[0] = precio;
+    preciosCombustible[3] = precio;
 
     cout<<"Ingrese el precio de combustible Premium en la Region Centro: ";
     cin>>precio;
-    precioCentro[1] = precio;
+    preciosCombustible[4] = precio;
 
     cout<<"Ingrese el precio de combustible EcoExtra en la Region Centro: ";
     cin>>precio;
-    precioCentro[2] = precio;
+    preciosCombustible[5] = precio;
 
     cout<<"Ingrese el precio de combustible Regular en la Region Sur: ";
     cin>>precio;
-    precioSur[0] = precio;
+    preciosCombustible[6] = precio;
 
     cout<<"Ingrese el precio de combustible Premium en la Region Sur: ";
     cin>>precio;
-    precioSur[1] = precio;
+    preciosCombustible[7] = precio;
 
     cout<<"Ingrese el precio de combustible EcoExtra en la Region Sur: ";
     cin>>precio;
-    precioSur[2] = precio;
+    preciosCombustible[8] = precio;
 }
 
 

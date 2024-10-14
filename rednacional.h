@@ -7,20 +7,23 @@
 #include "surtidor.h"
 using namespace std;
 
+class estacion;
+
 class redNacional
 {
 private://Atributos
     string nombre;
     estacion *Estaciones;
-    unsigned int precioNorte[3];
-    unsigned int precioSur[3];
-    unsigned int precioCentro[3];
+    unsigned int preciosCombustible[9];
     unsigned short int capacidadEstaciones = 0;
     unsigned short int cantidadEstaciones = 0;
+
+    friend class estacion;
 
 public:
 
     redNacional(string);//constructor
+    unsigned int* getPreciosCombustible();
     void agregarEstacion(estacion);
     void eliminarEstacion(estacion);
     void establecerPrecio(unsigned int, unsigned int&);

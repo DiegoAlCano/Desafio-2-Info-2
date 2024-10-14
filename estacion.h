@@ -7,6 +7,7 @@
 #include "surtidor.h"
 using namespace std;
 
+class redNacional;
 
 class estacion
 {
@@ -19,6 +20,7 @@ private://Atributos
     short int cantidadSurtidores;
     surtidor* Surtidores;
     float tanque[6] = {0,0,0,0,0,0};
+
 public://Metodos
     estacion(string _nombre,string _identificador,string _gerente, string _region,string _ubicacionGPS);//Constructor
     estacion();
@@ -36,8 +38,9 @@ public://Metodos
     void consultarTransacciones();
     void modificarSurtidor(string _codigoIdentificador);
     void cantidadesVendidas();
-    void realizarVenta();
     void mostrarInformacion()const;
+    void simularVenta(redNacional& red);
+    void actualizarDisponible(short unsigned int _cantidadVendida, string _tipoCombustible);
     // Sobrecarga del operador ==
     bool operator==(const estacion& otraEstacion) const {
         return (nombre == otraEstacion.nombre && identificador == otraEstacion.identificador);

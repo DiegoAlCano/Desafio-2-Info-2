@@ -72,17 +72,31 @@ void redNacional::agregarEstacion(estacion nuevaEstacion)
 }
 
 void redNacional::eliminarEstacion(estacion estacionEliminar) {
-    bool encontrado = false;
+    bool encontrado = false,estadoSurtidor=false;
+    short unsigned int cantidadSurtidores = 0;
 
     for (int i = 0; i < cantidadEstaciones; i++) {
         if (Estaciones[i] == estacionEliminar) {
             encontrado = true;
-            for (int j = i; j < cantidadEstaciones - 1; j++) {
-                Estaciones[j] = Estaciones[j + 1];  // Desplaza todas las estaciones una posición a la izquierda
+            cantidadSurtidores = Estaciones[i].getCantidadSurtidores();
+
+            for(int k = 0;k<cantidadSurtidores;k++){
+                estadoSurtidor = Estaciones[i].getSurtidores()[k].getActivo();
+                if(estadoSurtidor == true){
+                    cout<<"La estacion tiene surtidores activos"<<endl;
+                    k = cantidadSurtidores;
+                    i = cantidadEstaciones;
+                }
             }
-            cantidadEstaciones--;
-            cout << "La estacion ha sido eliminada correctamente." << endl;
-            return;
+
+            if(estadoSurtidor == false){
+                for (int j = i; j < cantidadEstaciones - 1; j++) {
+                    Estaciones[j] = Estaciones[j + 1];  // Desplaza todas las estaciones una posición a la izquierda
+                }
+                cantidadEstaciones--;
+                cout << "La estacion ha sido eliminada correctamente." << endl;
+                return;
+            }
         }
     }
 

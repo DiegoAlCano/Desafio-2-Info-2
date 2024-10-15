@@ -47,6 +47,7 @@ void estacion::agregarSurtidor(const surtidor& nuevoSurtidor){
         Surtidores[cantidadSurtidores]= nuevoSurtidor;
         cantidadSurtidores++;
         cout<< "El SURTIDOR se ha agregado correctamente."<< endl;
+        cout<<"La cantidad de surtidores es: "<< cantidadSurtidores<< endl;
     }
 
 }
@@ -335,6 +336,55 @@ void estacion::simularVenta(redNacional& red){
     nuevaVenta.mostrarVenta();
 }
 
+void estacion::verificarFugas(){
+    unsigned short int Regular=0,Premium=0, EcoExtra=0,combustibleVendido = 0,numVentas=0;
+    string categoriaCombustible;
+
+    for(int i = 0;i<cantidadSurtidores;i++){
+        numVentas = Surtidores[i].getNumVentas();
+        for(int k=0;k<numVentas;k++){
+            categoriaCombustible = Surtidores[i].getVentas()[k].getCategoriaCombustible();
+            combustibleVendido = Surtidores[i].getVentas()[k].getCantidadCombustibleVendido();
+            if(categoriaCombustible == "Regular"){
+                Regular += combustibleVendido;
+            }
+            else if(categoriaCombustible == "Premium"){
+                Premium += combustibleVendido;
+            }
+            else{
+                EcoExtra += combustibleVendido;
+            }
+        }
+    }
+
+    if(Regular+tanque[3]<tanque[0]*0.95){
+        cout<<"Existe una fuga para el combustible Regular"<<endl;
+    }
+
+    else{
+        cout<<"No exiten fugas para el combustible Regular"<<endl;
+    }
+
+    if(Premium+tanque[4]<tanque[1]*0.95){
+        cout<<"Existe una fuga para el combustible Premium"<<endl;
+    }
+
+    else{
+        cout<<"No exiten fugas para el combustible Premium"<<endl;
+    }
+
+    if(EcoExtra+tanque[5]<tanque[2]*0.95){
+        cout<<"Existe una fuga para el combustible EcoExtar"<<endl;
+    }
+
+    else{
+        cout<<"No exiten fugas para el combustible EcoExtra"<<endl;
+    }
+
+
+}
+
 estacion::~estacion(){
     //delete[] Surtidores;
 }
+

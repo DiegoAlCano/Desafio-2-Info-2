@@ -25,7 +25,6 @@ estacion::estacion(string nombre1,string identificador1)
     ubicacionGPS = "";
     cantidadSurtidores = 0;
     Surtidores = new surtidor[12];
-
 }
 
 estacion::estacion(string _nombre,string _identificador,string _gerente, string _region,string _ubicacionGPS){
@@ -38,18 +37,32 @@ estacion::estacion(string _nombre,string _identificador,string _gerente, string 
     Surtidores = new surtidor[12];
 }
 
-void estacion::agregarSurtidor(const surtidor& nuevoSurtidor){
+void estacion::agregarSurtidor(surtidor& nuevoSurtidor){
+
+    bool Duplicada = false;
+
+    for(int i = 0;i < cantidadSurtidores;i++){
+        if(Surtidores[i].getCodigoIdentificador() == nuevoSurtidor.getCodigoIdentificador()){
+            cout << endl;
+            cout << endl;
+            cout<< "Ya se encuentra agregado un surtidor con ese codigo identificador"<<endl;
+            cout << endl;
+            cout << endl;
+            Duplicada = true;
+            break;
+        }
+    }
 
     if(cantidadSurtidores==11){
         cout<<"No se pueden agregar mas surtidores a la estacion "<<nombre<<endl;
     }
-    else{
+
+    else if(!Duplicada){
         Surtidores[cantidadSurtidores]= nuevoSurtidor;
         cantidadSurtidores++;
         cout<< "El SURTIDOR se ha agregado correctamente."<< endl;
         cout<<"La cantidad de surtidores es: "<< cantidadSurtidores<< endl;
     }
-
 }
 
 
@@ -387,4 +400,3 @@ void estacion::verificarFugas(){
 estacion::~estacion(){
     //delete[] Surtidores;
 }
-

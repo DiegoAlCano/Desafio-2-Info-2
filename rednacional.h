@@ -32,7 +32,7 @@ public:
     void mostrarEstaciones() const;
     void montoVentasNacional();
     void fijarPreciosCombustible();
-    estacion encontarEstacion(estacion);
+    estacion encontarEstacion(estacion,bool &encontrado);
 
     ~redNacional();//Destructor
 };

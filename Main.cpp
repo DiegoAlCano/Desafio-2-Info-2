@@ -59,13 +59,14 @@ int main()
     imprimirTabla(" Bienvenido a la red nacional de gasolineras de :" + nombre);
 
     unsigned short int opc;
+
     do {
         imprimirTabla("M E N U");
         cout << " 1. Gestion de red "<< endl;
         cout << " 2. Gestion de estacion de servicio"<< endl;
         cout << " 3. Verificacion de fugas"<< endl;
         cout << " 4. Salir" << endl;
-        cout << "ELIGA LA OPCION QUE DESEE: ";
+        cout << "ELIJA LA OPCION QUE DESEE: ";
         cin >> opc;
 
         switch (opc) {
@@ -80,7 +81,7 @@ int main()
                 cout << " 3. Calcular el monto total de las ventas en cada E/S del pais, discriminado por categoria de combustible."<< endl;
                 cout << " 4. Fijar los precios del combustible para toda la red."<< endl;
                 cout << " 5. Volver al MENU anterior" << endl;
-                cout << "ELIGA LA OPCION QUE DESEE: ";
+                cout << "ELIJA LA OPCION QUE DESEE: ";
                 cin >> opc1;
                 switch (opc1) {
                 case 1:
@@ -123,6 +124,7 @@ int main()
                 }
                 case 2:
                 {
+                    bool encontrado = false;
                     cout << "Ha seleccionada la opcion ELIMINAR UNA ESTACION" << endl;
                     cout << "Ingrese el nombre de la estacion: ";
                     string nombre1;
@@ -133,8 +135,12 @@ int main()
                     getline(cin,codigo);
 
                     estacion estacion1(nombre1,codigo);
-                    pais.eliminarEstacion(estacion1);
-                    pais.mostrarEstaciones();
+                    estacion1 = pais.encontarEstacion(estacion1,encontrado);
+
+                    if(encontrado == true){
+                        pais.eliminarEstacion(estacion1);
+                        pais.mostrarEstaciones();
+                    }
                     break;
                 }
                 case 3:
@@ -177,12 +183,13 @@ int main()
                 cout << " 6. Reportar la cantidad la cantidad de litros vendidos segun cada categoria de combustible" << endl;
                 cout << " 7. Simular una venta de combustible"<< endl;
                 cout << " 8. Volver al MENU anterior" << endl;
-                cout << "ELIGA LA OPCION QUE DESEE: ";
+                cout << "ELIJA LA OPCION QUE DESEE: ";
                 cin >> opc1;
 
                 switch (opc1) {
                 case 1:
                 {
+                    bool encontrado = false;
                     cout << "Ha seleccionado la opcion  AGREGAR UN SURTIDOR A LA ESTACION "<< endl;
                     string nombre1;
                     cout << "Ingrese el nombre de la ESTACION: ";
@@ -194,39 +201,44 @@ int main()
 
 
                     estacion estacion1(nombre1,codigo);
-                    estacion1 = pais.encontarEstacion(estacion1);
-                    cout<< "Ingrese el codigo del SURTIDOR: ";
-                    string codigoSurtidor;
-                    getline(cin,codigoSurtidor);
-                    cout<< "Ingrese el modelo del SURTIDOR: ";
-                    string modeloSurtidor;
-                    getline(cin,modeloSurtidor);
-                    string estado;
-                    while(true){
-                        cout<< "Ingrese el estado del SURTIDOR, true si esta ACTIVO o false si esta DESACTIVADO: ";
-                        getline(cin, estado);
-                        if (estado == "true" || estado == "false") {
-                            break;
-                        } else {
-                            cout << "Entrada invalida. Por favor, ingrese una de las opciones permitidas." << endl;
+                    estacion1 = pais.encontarEstacion(estacion1,encontrado);
+
+                    if(encontrado==true){
+                        cout<< "Ingrese el codigo del SURTIDOR: ";
+                        string codigoSurtidor;
+                        getline(cin,codigoSurtidor);
+                        cout<< "Ingrese el modelo del SURTIDOR: ";
+                        string modeloSurtidor;
+                        getline(cin,modeloSurtidor);
+                        string estado;
+                        while(true){
+                            cout<< "Ingrese el estado del SURTIDOR, true si esta ACTIVO o false si esta DESACTIVADO: ";
+                            getline(cin, estado);
+                            if (estado == "true" || estado == "false") {
+                                break;
+                            } else {
+                                cout << "Entrada invalida. Por favor, ingrese una de las opciones permitidas." << endl;
+                            }
+
                         }
+                        bool ESTADO;
+                        if(estado== "true"){
+                            ESTADO = true;
+
+                        }
+                        else{
+                            ESTADO = false;
+                        }
+                        surtidor surtidor1(codigoSurtidor,modeloSurtidor,ESTADO);
+                        estacion1.agregarSurtidor(surtidor1);
 
                     }
-                    bool ESTADO;
-                    if(estado== "true"){
-                        ESTADO = true;
-
-                    }
-                    else{
-                        ESTADO = false;
-                    }
-                    surtidor surtidor1(codigoSurtidor,modeloSurtidor,ESTADO);
-                    estacion1.agregarSurtidor(surtidor1);
 
                     break;
                 }
                 case 2:
                 {
+                    bool encontrado = false;
                     cout << "Ha seleccionada la opcion ELIMINAR UN SURTIDOR DE LA ESTACION" << endl;
                     string nombre1;
                     cout << "Ingrese el nombre de la ESTACION DONDE SE ENCUENTRA EL SURTIDOR: ";
@@ -237,16 +249,21 @@ int main()
                     getline(cin,codigo);
                     estacion estacion1(nombre1,codigo);
 
-                    estacion1 = pais.encontarEstacion(estacion1);
-                    cout<< "Ingrese el codigo del SURTIDOR QUE DESEA ELIMINAR: ";
-                    string codigoSurtidor;
-                    getline(cin,codigoSurtidor);
-                    estacion1.eliminarSurtidor(codigoSurtidor);
+                    estacion1 = pais.encontarEstacion(estacion1,encontrado);
+
+                    if(encontrado == true){
+                        cout<< "Ingrese el codigo del SURTIDOR QUE DESEA ELIMINAR: ";
+                        string codigoSurtidor;
+                        getline(cin,codigoSurtidor);
+                        estacion1.eliminarSurtidor(codigoSurtidor);
+
+                    }
 
                     break;
                 }
                 case 3:
                 {
+                    bool encontrado = false;
                     cout << "Ha seleccionado la opcion ACTIVAR SURTIDOR"<< endl;
                     string nombre1;
                     cout << "Ingrese el nombre de la ESTACION DONDE SE ENCUENTRA EL SURTIDOR: ";
@@ -257,17 +274,21 @@ int main()
                     getline(cin,codigo);
                     estacion estacion1(nombre1,codigo);
 
-                    estacion1 = pais.encontarEstacion(estacion1);
-                    cout << "Ingrese el codigo del SURTIDOR QUE DESEA ACTIVAR: ";
-                    string codigoSurtidor;
-                    getline(cin,codigoSurtidor);
-                    estacion1.modificarSurtidor(codigoSurtidor);
-                    cout<< "El SURTIDOR a sido activado"<< endl;
+                    estacion1 = pais.encontarEstacion(estacion1,encontrado);
+
+                    if(encontrado == true){
+                        cout << "Ingrese el codigo del SURTIDOR QUE DESEA ACTIVAR: ";
+                        string codigoSurtidor;
+                        getline(cin,codigoSurtidor);
+                        estacion1.modificarSurtidor(codigoSurtidor);
+                        cout<< "El SURTIDOR a sido activado"<< endl;
+                    }
 
                     break;
                 }
                 case 4:
                 {
+                    bool encontrado = false;
                     cout << "Ha seleccionado la opcion DESACTIVAR SURTIDOR"<< endl;
                     string nombre1;
                     cout << "Ingrese el nombre de la ESTACION DONDE SE ENCUENTRA EL SURTIDOR: ";
@@ -278,19 +299,22 @@ int main()
                     getline(cin,codigo);
                     estacion estacion1(nombre1,codigo);
 
-                    estacion1 = pais.encontarEstacion(estacion1);
-                    cout << "Ingrese el codigo del SURTIDOR QUE DESEA DESACTIVAR: ";
-                    string codigoSurtidor;
-                    getline(cin,codigoSurtidor);
-                    estacion1.modificarSurtidor(codigoSurtidor);
-                    cout << "El SURTIDOR a sido desactivado" << endl;
+                    estacion1 = pais.encontarEstacion(estacion1,encontrado);
 
+                    if(encontrado == true){
+                        cout << "Ingrese el codigo del SURTIDOR QUE DESEA DESACTIVAR: ";
+                        string codigoSurtidor;
+                        getline(cin,codigoSurtidor);
+                        estacion1.modificarSurtidor(codigoSurtidor);
+                        cout << "El SURTIDOR a sido desactivado" << endl;
+                    }
 
                     break;
                 }
                 case 5:{
                     cout<<"Ha seleccionado la opcion CONSULTAR HISTORICO DE TRANSACCIONES DE CADA SURTIDOR"<<endl;
                     string nombre1;
+                    bool encontrado = false;
                     cout << "Ingrese el nombre de la ESTACION: ";
                     cin.ignore();
                     getline(cin,nombre1);
@@ -300,14 +324,19 @@ int main()
 
 
                     estacion estacion1(nombre1,codigo);
-                    estacion1 = pais.encontarEstacion(estacion1);
-                    estacion1.consultarTransacciones();
+                    estacion1 = pais.encontarEstacion(estacion1,encontrado);
+
+                    if(encontrado == true){
+                        estacion1.consultarTransacciones();
+                    }
+
                     break;
                 }
 
                 case 6:{
                     cout << "Ha seleccionado la opcion Reportar la cantidad la cantidad de litros vendidos segun cada categoria de combustible "<< endl;
                     string nombre1;
+                    bool encontrado = false;
                     cout << "Ingrese el nombre de la ESTACION: ";
                     cin.ignore();
                     getline(cin,nombre1);
@@ -317,14 +346,18 @@ int main()
 
 
                     estacion estacion1(nombre1,codigo);
-                    estacion1 = pais.encontarEstacion(estacion1);
-                    estacion1.cantidadesVendidas();
+                    estacion1 = pais.encontarEstacion(estacion1,encontrado);
+
+                    if(encontrado == true){
+                        estacion1.cantidadesVendidas();
+                    }
                     break;
                 }
                 case 7:{
 
                     cout << "Ha seleccionado la opcion SIMULAR VENTA"<< endl;
                     string nombre1;
+                    bool encontrado=false;
                     cout << "Ingrese el nombre de la ESTACION: ";
                     cin.ignore();
                     getline(cin,nombre1);
@@ -334,9 +367,12 @@ int main()
 
 
                     estacion estacion1(nombre1,codigo);
-                    estacion1 = pais.encontarEstacion(estacion1);
+                    estacion1 = pais.encontarEstacion(estacion1,encontrado);
 
-                    estacion1.simularVenta(pais);
+                    if(encontrado == true){
+                        estacion1.simularVenta(pais);
+                    }
+
                     break;
                 }
                 case 8:
@@ -359,6 +395,7 @@ int main()
         }
         case 3:
         {
+            bool encontrado = false;
             string mensaje3 = "SISTEMA NACIONAL DE VERIFICACION DE FUGAS";
             imprimirTabla(mensaje3);
             string nombre1;
@@ -369,8 +406,11 @@ int main()
             cout << "Ingrese el codigo identificador de la ESTACION: ";
             getline(cin,codigo);
             estacion estacion1(nombre1,codigo);
-            estacion1 = pais.encontarEstacion(estacion1);
-            estacion1.verificarFugas();
+            estacion1 = pais.encontarEstacion(estacion1,encontrado);
+
+            if(encontrado == true){
+                estacion1.verificarFugas();
+            }
 
             break;
         }

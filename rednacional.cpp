@@ -35,11 +35,7 @@ void redNacional::agregarEstacion(estacion nuevaEstacion)
         if(Estaciones[i].getUbicacionGPS() == nuevaEstacion.getUbicacionGPS()){
             cout << endl;
             cout << endl;
-            cout << endl;
-            cout << endl;
-            cout<< "Ya encuentra agregada una estacion en esa ubicacion GPS"<< endl;
-            cout << endl;
-            cout << endl;
+            cout<< "Ya se encuentra agregada una estacion en esa ubicacion GPS"<< endl;
             cout << endl;
             cout << endl;
             Duplicada = true;
@@ -48,11 +44,7 @@ void redNacional::agregarEstacion(estacion nuevaEstacion)
         else if(Estaciones[i].getIdentificador() == nuevaEstacion.getIdentificador()){
             cout << endl;
             cout << endl;
-            cout << endl;
-            cout << endl;
-            cout<< "Ya encuentra agregada una estacion con ese identificador"<< endl;
-            cout << endl;
-            cout << endl;
+            cout<< "Ya se encuentra agregada una estacion con ese identificador"<< endl;
             cout << endl;
             cout << endl;
             Duplicada = true;
@@ -211,17 +203,17 @@ void redNacional::redimensionar(estacion*& arreglo, unsigned short int& capacida
     capacidadEstaciones = nuevaCapacidad;
 }
 
-estacion redNacional::encontarEstacion(estacion estacion1)
+estacion redNacional::encontarEstacion(estacion estacion1,bool &encontrado)
 {
-    bool encontrada = false;
     for(int i = 0; i < cantidadEstaciones; i++){
         if(Estaciones[i]==estacion1 ){
+            encontrado = true;
             return Estaciones[i];
-            encontrada = true;
         }
     }
-    if(encontrada == false ){
-        cout << "No hay un estacion registrada con el nombre y el identificador ingresados" << endl;
+    if(encontrado == false ){
+        cout << "No hay una estacion registrada con el nombre y el identificador ingresados" << endl;
+        return estacion();
     }
 
 }

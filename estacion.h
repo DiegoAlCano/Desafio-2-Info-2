@@ -32,7 +32,7 @@ public://Metodos
     string getRegion();
     short int getCantidadSurtidores();
     surtidor* getSurtidores();
-    void agregarSurtidor(const surtidor& nuevoSurtidor);
+    void agregarSurtidor(surtidor& nuevoSurtidor);
     void capacidadTanque();
     void eliminarSurtidor(string _codigoIdentificador);
     void consultarTransacciones();
@@ -41,6 +41,7 @@ public://Metodos
     void mostrarInformacion()const;
     void simularVenta(redNacional& red);
     void actualizarDisponible(short unsigned int _cantidadVendida, string _tipoCombustible);
+    void verificarFugas();
     // Sobrecarga del operador ==
     bool operator==(const estacion& otraEstacion) const {
         return (nombre == otraEstacion.nombre && identificador == otraEstacion.identificador);

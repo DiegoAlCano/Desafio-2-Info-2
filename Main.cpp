@@ -361,6 +361,16 @@ int main()
         {
             string mensaje3 = "SISTEMA NACIONAL DE VERIFICACION DE FUGAS";
             imprimirTabla(mensaje3);
+            string nombre1;
+            cout << "Ingrese el nombre de la ESTACION en la cual quiere hacer la verificacion de fugas: ";
+            cin.ignore();
+            getline(cin,nombre1);
+            string codigo;
+            cout << "Ingrese el codigo identificador de la ESTACION: ";
+            getline(cin,codigo);
+            estacion estacion1(nombre1,codigo);
+            estacion1 = pais.encontarEstacion(estacion1);
+            estacion1.verificarFugas();
 
             break;
         }

@@ -43,11 +43,11 @@ Venta* surtidor::getVentas(){
     return ventas;
 }
 
-int surtidor::getCapacidad(){
+unsigned int surtidor::getCapacidad(){
     return capacidad;
 }
 
-int surtidor::getNumVentas(){
+unsigned int surtidor::getNumVentas(){
     return numVentas;
 }
 
@@ -63,7 +63,7 @@ void surtidor::mostrarVentas(){
     }
 
     else{
-        for(int i = 0;i<numVentas;i++){
+        for(unsigned int i = 0;i<numVentas;i++){
             cout<<"VENTA "<<i+1<<endl;
             ventas[i].mostrarVenta();
             cout<<endl;
@@ -77,7 +77,7 @@ void surtidor::redimensionar() {
     int nuevaCapacidad = capacidad + 10;
     Venta* nuevoArreglo = new Venta[nuevaCapacidad];
 
-    for (int i = 0; i<numVentas; i++) {
+    for (unsigned int i = 0; i<numVentas; i++) {
         nuevoArreglo[i] = ventas[i];
     }
 
@@ -97,5 +97,5 @@ void surtidor::agregarVenta(const Venta& nuevaVenta) {
 
 surtidor::~surtidor(){
     delete[] ventas;
+    ventas = NULL;
 }
-

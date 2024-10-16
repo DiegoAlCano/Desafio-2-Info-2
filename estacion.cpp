@@ -61,40 +61,54 @@ void estacion::eliminarSurtidor(string _codigoIdentificador){
     string id;
     bool encontrado = false;
 
-    for (int i = 0; i < cantidadSurtidores; i++) {
-        id = Surtidores[i].getCodigoIdentificador();
-        if (id == _codigoIdentificador) {
-            encontrado = true;
-            // Mover los surtidores hacia atrás en el arreglo
-            for (int k = i; k < cantidadSurtidores - 1; k++) {
-                Surtidores[k] = Surtidores[k + 1];
+    if(cantidadSurtidores>2){
+        for (int i = 0; i < cantidadSurtidores; i++) {
+            id = Surtidores[i].getCodigoIdentificador();
+            if (id == _codigoIdentificador) {
+                encontrado = true;
+                // Mover los surtidores hacia atrás en el arreglo
+                for (int k = i; k < cantidadSurtidores - 1; k++) {
+                    Surtidores[k] = Surtidores[k + 1];
+                }
+                cantidadSurtidores--; // Reducir la cantidad de surtidores
+                break; // Salir del bucle una vez encontrado
             }
-            cantidadSurtidores--; // Reducir la cantidad de surtidores
-            break; // Salir del bucle una vez encontrado
+        }
+
+        if (encontrado) {
+            cout << "Surtidor eliminado" << endl;
+            cout << endl;
+        } else {
+            cout << "El codigo ingresado no pertenece a un surtidor de la estacion" << endl;
+            cout << endl;
         }
     }
-
-    if (encontrado) {
-        cout << "Surtidor eliminado" << endl;
-        cout << endl;
-    } else {
-        cout << "El codigo ingresado no pertenece a un surtidor de la estacion" << endl;
-        cout << endl;
+    else{
+       cout <<"La estacion tiene el numero minimo de surtidores: 2"<<endl;
     }
 }
 
 void estacion::modificarSurtidor(string _codigoIdentificador){
     string id;
-    bool encontrado = false;
+    bool encontrado = false,estado= false;
 
     for(int i=0;i<cantidadSurtidores;i++){
         id = Surtidores[i].getCodigoIdentificador();
+        estado = Surtidores[i].getActivo();
         if(id ==_codigoIdentificador){
             encontrado = true;
-            Surtidores[i].setcambiarEstado();
-            i = cantidadSurtidores;
-            cout<<"Surtidor desactivado"<<endl;
-            cout<<endl;
+            if(estado==true){
+                Surtidores[i].setcambiarEstado();
+                i = cantidadSurtidores;
+                cout<<"Surtidor desactivado"<<endl;
+                cout<<endl;
+            }
+            else{
+                Surtidores[i].setcambiarEstado();
+                i = cantidadSurtidores;
+                cout<<"Surtidor activado"<<endl;
+                cout<<endl;
+            }
         }
 
     }

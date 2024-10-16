@@ -12,8 +12,8 @@ private://Atributos
     string codigoIdentificador;
     string modelo;
     bool activo;
-    int numVentas;     // Cantidad actual de ventas
-    int capacidad;     // Capacidad actual del arreglo
+    unsigned int numVentas;     // Cantidad actual de ventas
+    unsigned int capacidad;     // Capacidad actual del arreglo
     Venta* ventas;
 
 public://Metodos
@@ -23,8 +23,8 @@ public://Metodos
 
     string getCodigoIdentificador();
     Venta* getVentas();
-    int getCapacidad();
-    int getNumVentas();
+    unsigned int getCapacidad();
+    unsigned int getNumVentas();
     bool getActivo();
     void redimensionar();
     void mostrarVentas();

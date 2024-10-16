@@ -43,7 +43,7 @@ void estacion::agregarSurtidor(surtidor& nuevoSurtidor){
         }
     }
 
-    if(cantidadSurtidores==11){
+    if(cantidadSurtidores==12){
         cout<<"No se pueden agregar mas surtidores a la estacion "<<nombre<<endl;
     }
 
@@ -146,21 +146,6 @@ void estacion::capacidadTanque(){
     for(int i = 0;i<3;i++){
         tanque[i]= rand() % 101 + 100;
         tanque[3+i]=tanque[i];
-    }
-}
-
-void estacion::actualizarDisponible(short unsigned int _cantidadVendida, string _tipoCombustible){
-
-    if(_tipoCombustible=="Regular"){
-        tanque[3] -= _cantidadVendida;
-    }
-
-    else if(_tipoCombustible=="Premium"){
-        tanque[4] -= _cantidadVendida;
-    }
-
-    else if(_tipoCombustible=="EcoExtra"){
-        tanque[5] -= _cantidadVendida;
     }
 }
 

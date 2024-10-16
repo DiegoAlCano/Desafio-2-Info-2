@@ -16,16 +16,6 @@ estacion::estacion(){
     cantidadSurtidores = 0;
     Surtidores = new surtidor[12];
 }
-estacion::estacion(string nombre1,string identificador1)
-{
-    nombre = nombre1;
-    identificador = identificador1;
-    gerente = "";
-    region = "";
-    ubicacionGPS = "";
-    cantidadSurtidores = 0;
-    Surtidores = new surtidor[12];
-}
 
 estacion::estacion(string _nombre,string _identificador,string _gerente, string _region,string _ubicacionGPS){
     nombre = _nombre;
@@ -116,7 +106,7 @@ void estacion::modificarSurtidor(string _codigoIdentificador){
 }
 
 void estacion::cantidadesVendidas(){
-    float regular=0,premium=0,extra=0,vendida=0,numVentas;
+    unsigned int regular=0,premium=0,extra=0,vendida=0,numVentas;
     string tipo;
 
     for(int i=0;i<cantidadSurtidores;i++){
@@ -196,7 +186,7 @@ surtidor* estacion::getSurtidores(){
     return Surtidores;
 }
 
-short int estacion::getCantidadSurtidores(){
+short unsigned int estacion::getCantidadSurtidores(){
     return cantidadSurtidores;
 }
 void estacion::mostrarInformacion() const {
@@ -207,6 +197,54 @@ void estacion::mostrarInformacion() const {
     cout << "Region: " << region << endl;
     cout << "Ubicacion GPS: " << ubicacionGPS << endl;
     cout << "--------------------------"<<endl;
+}
+
+void estacion::verificarFugas(){
+    short unsigned int Regular=0,Premium=0, EcoExtra=0,combustibleVendido = 0,numVentas=0;
+    string categoriaCombustible;
+
+    for(int i = 0;i<cantidadSurtidores;i++){
+        numVentas = Surtidores[i].getNumVentas();
+        for(int k=0;k<numVentas;k++){
+            categoriaCombustible = Surtidores[i].getVentas()[k].getCategoriaCombustible();
+            combustibleVendido = Surtidores[i].getVentas()[k].getCantidadCombustibleVendido();
+            if(categoriaCombustible == "Regular"){
+                Regular += combustibleVendido;
+            }
+            else if(categoriaCombustible == "Premium"){
+                Premium += combustibleVendido;
+            }
+            else{
+                EcoExtra += combustibleVendido;
+            }
+        }
+    }
+
+    if(Regular+tanque[3]<tanque[0]*0.95){
+        cout<<"Existe una fuga para el combustible Regular"<<endl;
+    }
+
+    else{
+        cout<<"No exiten fugas para el combustible Regular"<<endl;
+    }
+
+    if(Premium+tanque[4]<tanque[1]*0.95){
+        cout<<"Existe una fuga para el combustible Premium"<<endl;
+    }
+
+    else{
+        cout<<"No exiten fugas para el combustible Premium"<<endl;
+    }
+
+    if(EcoExtra+tanque[5]<tanque[2]*0.95){
+        cout<<"Existe una fuga para el combustible EcoExtar"<<endl;
+    }
+
+    else{
+        cout<<"No exiten fugas para el combustible EcoExtra"<<endl;
+    }
+
+
 }
 
 void estacion::simularVenta(redNacional& red){
@@ -220,8 +258,10 @@ void estacion::simularVenta(redNacional& red){
 
     srand(time(NULL));
 
+
     surt = rand() % cantidadSurtidores;
 
+    cout<<"La fecha debe ser ingresada en formato: dd/mm/aa"<<endl;
     cout<<"Ingrese el dia de la venta: ";
     cin>>textoAux;
     texto += textoAux;
@@ -237,6 +277,7 @@ void estacion::simularVenta(redNacional& red){
     nuevaVenta.setFechaVenta(texto);
     texto="";
 
+    cout<<"La hora debe ser ingresada en formato 24 horas hh:mm"<<endl;
     cout<<"Ingrese la hora del dia de la venta: ";
     cin>>textoAux;
     texto += textoAux;
@@ -349,54 +390,8 @@ void estacion::simularVenta(redNacional& red){
     nuevaVenta.mostrarVenta();
 }
 
-void estacion::verificarFugas(){
-    unsigned short int Regular=0,Premium=0, EcoExtra=0,combustibleVendido = 0,numVentas=0;
-    string categoriaCombustible;
-
-    for(int i = 0;i<cantidadSurtidores;i++){
-        numVentas = Surtidores[i].getNumVentas();
-        for(int k=0;k<numVentas;k++){
-            categoriaCombustible = Surtidores[i].getVentas()[k].getCategoriaCombustible();
-            combustibleVendido = Surtidores[i].getVentas()[k].getCantidadCombustibleVendido();
-            if(categoriaCombustible == "Regular"){
-                Regular += combustibleVendido;
-            }
-            else if(categoriaCombustible == "Premium"){
-                Premium += combustibleVendido;
-            }
-            else{
-                EcoExtra += combustibleVendido;
-            }
-        }
-    }
-
-    if(Regular+tanque[3]<tanque[0]*0.95){
-        cout<<"Existe una fuga para el combustible Regular"<<endl;
-    }
-
-    else{
-        cout<<"No exiten fugas para el combustible Regular"<<endl;
-    }
-
-    if(Premium+tanque[4]<tanque[1]*0.95){
-        cout<<"Existe una fuga para el combustible Premium"<<endl;
-    }
-
-    else{
-        cout<<"No exiten fugas para el combustible Premium"<<endl;
-    }
-
-    if(EcoExtra+tanque[5]<tanque[2]*0.95){
-        cout<<"Existe una fuga para el combustible EcoExtar"<<endl;
-    }
-
-    else{
-        cout<<"No exiten fugas para el combustible EcoExtra"<<endl;
-    }
-
-
-}
-
 estacion::~estacion(){
+
     //delete[] Surtidores;
+    //Surtidores = NULL;
 }

@@ -17,20 +17,19 @@ private://Atributos
     string gerente;
     string region;
     string ubicacionGPS;
-    short int cantidadSurtidores;
+    short unsigned int cantidadSurtidores;
     surtidor* Surtidores;
-    float tanque[6] = {0,0,0,0,0,0};
+    short unsigned int tanque[6] = {0,0,0,0,0,0};
 
 public://Metodos
     estacion(string _nombre,string _identificador,string _gerente, string _region,string _ubicacionGPS);//Constructor
     estacion();
-    estacion(string nombre1,string identificador1);
     ~estacion();//Destructor
     string getNombre();
     string getIdentificador();
     string getUbicacionGPS();
     string getRegion();
-    short int getCantidadSurtidores();
+    short unsigned int getCantidadSurtidores();
     surtidor* getSurtidores();
     void agregarSurtidor(surtidor& nuevoSurtidor);
     void capacidadTanque();
@@ -39,9 +38,9 @@ public://Metodos
     void modificarSurtidor(string _codigoIdentificador);
     void cantidadesVendidas();
     void mostrarInformacion()const;
-    void simularVenta(redNacional& red);
     void actualizarDisponible(short unsigned int _cantidadVendida, string _tipoCombustible);
     void verificarFugas();
+    void simularVenta(redNacional& red);
     // Sobrecarga del operador ==
     bool operator==(const estacion& otraEstacion) const {
         return (nombre == otraEstacion.nombre && identificador == otraEstacion.identificador);

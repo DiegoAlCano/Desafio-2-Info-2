@@ -116,29 +116,26 @@ int main()
                     string ubicacionGPS;
                     cout << "Ingrese la ubicacion la Ubicacion GPS: ";
                     getline(cin,ubicacionGPS);
-                    estacion estacion1(nombre1,codigo,gerente,region,ubicacionGPS);
-                    estacion1.capacidadTanque();
-                    pais.agregarEstacion(estacion1);
+                    estacion nuevaEstacion(nombre1,codigo,gerente,region,ubicacionGPS);
+                    nuevaEstacion.capacidadTanque();
+                    pais.agregarEstacion(nuevaEstacion);
                     pais.mostrarEstaciones();
                     break;
                 }
                 case 2:
                 {
                     bool encontrado = false;
+                    int indice = 0;
                     cout << "Ha seleccionada la opcion ELIMINAR UNA ESTACION" << endl;
-                    cout << "Ingrese el nombre de la estacion: ";
-                    string nombre1;
-                    cin.ignore();
-                    getline(cin,nombre1);
                     string codigo;
                     cout << "Ingrese el codigo identificador: ";
+                    cin.ignore();
                     getline(cin,codigo);
 
-                    estacion estacion1(nombre1,codigo);
-                    estacion1 = pais.encontarEstacion(estacion1,encontrado);
+                    encontrado = pais.encontarEstacion(codigo,indice);
 
                     if(encontrado == true){
-                        pais.eliminarEstacion(estacion1);
+                        pais.eliminarEstacion(indice);
                         pais.mostrarEstaciones();
                     }
                     break;
@@ -190,48 +187,17 @@ int main()
                 case 1:
                 {
                     bool encontrado = false;
+                    int indice = 0;
                     cout << "Ha seleccionado la opcion  AGREGAR UN SURTIDOR A LA ESTACION "<< endl;
-                    string nombre1;
-                    cout << "Ingrese el nombre de la ESTACION: ";
-                    cin.ignore();
-                    getline(cin,nombre1);
                     string codigo;
                     cout << "Ingrese el codigo identificador de la ESTACION: ";
+                    cin.ignore();
                     getline(cin,codigo);
 
-
-                    estacion estacion1(nombre1,codigo);
-                    estacion1 = pais.encontarEstacion(estacion1,encontrado);
+                    encontrado = pais.encontarEstacion(codigo,indice);
 
                     if(encontrado==true){
-                        cout<< "Ingrese el codigo del SURTIDOR: ";
-                        string codigoSurtidor;
-                        getline(cin,codigoSurtidor);
-                        cout<< "Ingrese el modelo del SURTIDOR: ";
-                        string modeloSurtidor;
-                        getline(cin,modeloSurtidor);
-                        string estado;
-                        while(true){
-                            cout<< "Ingrese el estado del SURTIDOR, true si esta ACTIVO o false si esta DESACTIVADO: ";
-                            getline(cin, estado);
-                            if (estado == "true" || estado == "false") {
-                                break;
-                            } else {
-                                cout << "Entrada invalida. Por favor, ingrese una de las opciones permitidas." << endl;
-                            }
-
-                        }
-                        bool ESTADO;
-                        if(estado== "true"){
-                            ESTADO = true;
-
-                        }
-                        else{
-                            ESTADO = false;
-                        }
-                        surtidor surtidor1(codigoSurtidor,modeloSurtidor,ESTADO);
-                        estacion1.agregarSurtidor(surtidor1);
-
+                        pais.modificarEstacion(indice,opc1,pais);
                     }
 
                     break;
@@ -239,23 +205,17 @@ int main()
                 case 2:
                 {
                     bool encontrado = false;
+                    int indice = 0;
                     cout << "Ha seleccionada la opcion ELIMINAR UN SURTIDOR DE LA ESTACION" << endl;
-                    string nombre1;
-                    cout << "Ingrese el nombre de la ESTACION DONDE SE ENCUENTRA EL SURTIDOR: ";
-                    cin.ignore();
-                    getline(cin,nombre1);
                     string codigo;
                     cout << "Ingrese el codigo identificador de la ESTACION DONDE SE ENCUENTRA EL SURTIDOR: ";
+                    cin.ignore();
                     getline(cin,codigo);
-                    estacion estacion1(nombre1,codigo);
 
-                    estacion1 = pais.encontarEstacion(estacion1,encontrado);
+                    encontrado = pais.encontarEstacion(codigo,indice);
 
                     if(encontrado == true){
-                        cout<< "Ingrese el codigo del SURTIDOR QUE DESEA ELIMINAR: ";
-                        string codigoSurtidor;
-                        getline(cin,codigoSurtidor);
-                        estacion1.eliminarSurtidor(codigoSurtidor);
+                        pais.modificarEstacion(indice,opc1,pais);
 
                     }
 
@@ -264,24 +224,17 @@ int main()
                 case 3:
                 {
                     bool encontrado = false;
+                    int indice = 0;
                     cout << "Ha seleccionado la opcion ACTIVAR SURTIDOR"<< endl;
-                    string nombre1;
-                    cout << "Ingrese el nombre de la ESTACION DONDE SE ENCUENTRA EL SURTIDOR: ";
-                    cin.ignore();
-                    getline(cin,nombre1);
                     string codigo;
                     cout << "Ingrese el codigo identificador de la ESTACION DONDE SE ENCUENTRA EL SURTIDOR: ";
+                    cin.ignore();
                     getline(cin,codigo);
-                    estacion estacion1(nombre1,codigo);
 
-                    estacion1 = pais.encontarEstacion(estacion1,encontrado);
+                    encontrado = pais.encontarEstacion(codigo,indice);
 
                     if(encontrado == true){
-                        cout << "Ingrese el codigo del SURTIDOR QUE DESEA ACTIVAR: ";
-                        string codigoSurtidor;
-                        getline(cin,codigoSurtidor);
-                        estacion1.modificarSurtidor(codigoSurtidor);
-                        cout<< "El SURTIDOR a sido activado"<< endl;
+                        pais.modificarEstacion(indice,opc1,pais);
                     }
 
                     break;
@@ -289,45 +242,34 @@ int main()
                 case 4:
                 {
                     bool encontrado = false;
+                    int indice = 0;
                     cout << "Ha seleccionado la opcion DESACTIVAR SURTIDOR"<< endl;
-                    string nombre1;
-                    cout << "Ingrese el nombre de la ESTACION DONDE SE ENCUENTRA EL SURTIDOR: ";
-                    cin.ignore();
-                    getline(cin,nombre1);
                     string codigo;
                     cout << "Ingrese el codigo identificador de la ESTACION DONDE SE ENCUENTRA EL SURTIDOR: ";
+                    cin.ignore();
                     getline(cin,codigo);
-                    estacion estacion1(nombre1,codigo);
 
-                    estacion1 = pais.encontarEstacion(estacion1,encontrado);
+                    encontrado = pais.encontarEstacion(codigo,indice);
 
                     if(encontrado == true){
-                        cout << "Ingrese el codigo del SURTIDOR QUE DESEA DESACTIVAR: ";
-                        string codigoSurtidor;
-                        getline(cin,codigoSurtidor);
-                        estacion1.modificarSurtidor(codigoSurtidor);
-                        cout << "El SURTIDOR a sido desactivado" << endl;
+                        pais.modificarEstacion(indice,opc1,pais);
                     }
 
                     break;
                 }
                 case 5:{
                     cout<<"Ha seleccionado la opcion CONSULTAR HISTORICO DE TRANSACCIONES DE CADA SURTIDOR"<<endl;
-                    string nombre1;
                     bool encontrado = false;
-                    cout << "Ingrese el nombre de la ESTACION: ";
-                    cin.ignore();
-                    getline(cin,nombre1);
+                    int indice = 0;
                     string codigo;
                     cout << "Ingrese el codigo identificador de la ESTACION: ";
+                    cin.ignore();
                     getline(cin,codigo);
 
-
-                    estacion estacion1(nombre1,codigo);
-                    estacion1 = pais.encontarEstacion(estacion1,encontrado);
+                    encontrado = pais.encontarEstacion(codigo,indice);
 
                     if(encontrado == true){
-                        estacion1.consultarTransacciones();
+                        pais.modificarEstacion(indice,opc1,pais);
                     }
 
                     break;
@@ -335,42 +277,34 @@ int main()
 
                 case 6:{
                     cout << "Ha seleccionado la opcion Reportar la cantidad la cantidad de litros vendidos segun cada categoria de combustible "<< endl;
-                    string nombre1;
                     bool encontrado = false;
-                    cout << "Ingrese el nombre de la ESTACION: ";
-                    cin.ignore();
-                    getline(cin,nombre1);
+                    int indice = 0;
                     string codigo;
                     cout << "Ingrese el codigo identificador de la ESTACION: ";
+                    cin.ignore();
                     getline(cin,codigo);
 
-
-                    estacion estacion1(nombre1,codigo);
-                    estacion1 = pais.encontarEstacion(estacion1,encontrado);
+                    encontrado = pais.encontarEstacion(codigo,indice);
 
                     if(encontrado == true){
-                        estacion1.cantidadesVendidas();
+                        pais.modificarEstacion(indice,opc1,pais);
                     }
                     break;
                 }
                 case 7:{
 
                     cout << "Ha seleccionado la opcion SIMULAR VENTA"<< endl;
-                    string nombre1;
                     bool encontrado=false;
-                    cout << "Ingrese el nombre de la ESTACION: ";
-                    cin.ignore();
-                    getline(cin,nombre1);
+                    int indice = 0;
                     string codigo;
                     cout << "Ingrese el codigo identificador de la ESTACION: ";
+                    cin.ignore();
                     getline(cin,codigo);
 
-
-                    estacion estacion1(nombre1,codigo);
-                    estacion1 = pais.encontarEstacion(estacion1,encontrado);
+                    encontrado = pais.encontarEstacion(codigo,indice);
 
                     if(encontrado == true){
-                        estacion1.simularVenta(pais);
+                        pais.modificarEstacion(indice,opc1,pais);
                     }
 
                     break;
@@ -396,28 +330,24 @@ int main()
         case 3:
         {
             bool encontrado = false;
-            string mensaje3 = "SISTEMA NACIONAL DE VERIFICACION DE FUGAS";
-            imprimirTabla(mensaje3);
-            string nombre1;
-            cout << "Ingrese el nombre de la ESTACION en la cual quiere hacer la verificacion de fugas: ";
-            cin.ignore();
-            getline(cin,nombre1);
+            int indice = 0;
+            short unsigned int opc1 = 9;
+            imprimirTabla("SISTEMA NACIONAL DE VERIFICACION DE FUGAS");
             string codigo;
             cout << "Ingrese el codigo identificador de la ESTACION: ";
+            cin.ignore();
             getline(cin,codigo);
-            estacion estacion1(nombre1,codigo);
-            estacion1 = pais.encontarEstacion(estacion1,encontrado);
+            encontrado = pais.encontarEstacion(codigo,indice);
 
             if(encontrado == true){
-                estacion1.verificarFugas();
+                pais.modificarEstacion(indice,opc1,pais);
             }
 
             break;
         }
         case 4:
         {
-            string mensaje4 = "SALIENDO DEL SISTEMA";
-            imprimirTabla(mensaje4);
+            imprimirTabla("SALIENDO DEL SISTEMA");
             break;
         }
         default:

@@ -30,6 +30,7 @@ unsigned int* redNacional::getPreciosCombustible(){
 
 void redNacional::agregarEstacion(estacion nuevaEstacion)
 {
+    surtidor surtidorDefecto1("SURT1","MODELX",true), surtidorDefecto2("SURT2","MODELY",true);
     bool Duplicada = false;
     for(int i = 0;i < cantidadEstaciones;i++){
         if(Estaciones[i].getUbicacionGPS() == nuevaEstacion.getUbicacionGPS()){
@@ -56,6 +57,8 @@ void redNacional::agregarEstacion(estacion nuevaEstacion)
         if (cantidadEstaciones == capacidadEstaciones) {
             redimensionar(Estaciones,capacidadEstaciones,cantidadEstaciones);
         }
+        nuevaEstacion.agregarSurtidor(surtidorDefecto1);
+        nuevaEstacion.agregarSurtidor(surtidorDefecto2);
         Estaciones[cantidadEstaciones] = nuevaEstacion;
         cantidadEstaciones++;
         cout<< "La estacion fue agregada correctamente."<< endl;
@@ -63,40 +66,31 @@ void redNacional::agregarEstacion(estacion nuevaEstacion)
     }
 }
 
-void redNacional::eliminarEstacion(estacion estacionEliminar) {
-    bool encontrado = false,estadoSurtidor=false;
+
+void redNacional::eliminarEstacion(int &indice){
+    bool estadoSurtidor=false;
     short unsigned int cantidadSurtidores = 0;
 
-    for (int i = 0; i < cantidadEstaciones; i++) {
-        if (Estaciones[i] == estacionEliminar) {
-            encontrado = true;
-            cantidadSurtidores = Estaciones[i].getCantidadSurtidores();
+    cantidadSurtidores = Estaciones[indice].getCantidadSurtidores();
 
-            for(int k = 0;k<cantidadSurtidores;k++){
-                estadoSurtidor = Estaciones[i].getSurtidores()[k].getActivo();
-                if(estadoSurtidor == true){
-                    cout<<"La estacion tiene surtidores activos"<<endl;
-                    k = cantidadSurtidores;
-                    i = cantidadEstaciones;
-                }
-            }
-
-            if(estadoSurtidor == false){
-                for (int j = i; j < cantidadEstaciones - 1; j++) {
-                    Estaciones[j] = Estaciones[j + 1];  // Desplaza todas las estaciones una posición a la izquierda
-                }
-                cantidadEstaciones--;
-                cout << "La estacion ha sido eliminada correctamente." << endl;
-                return;
-            }
+    for(int k = 0;k<cantidadSurtidores;k++){
+        estadoSurtidor = Estaciones[indice].getSurtidores()[k].getActivo();
+        if(estadoSurtidor == true){
+            cout<<"La estacion tiene surtidores activos"<<endl;
+                k = cantidadSurtidores;
         }
     }
 
-    if(encontrado == false){
-        cout << "La estación no se encuentra registrada." << endl;
+    if(estadoSurtidor == false){
+        for (int j = indice; j < cantidadEstaciones - 1; j++) {
+            Estaciones[j] = Estaciones[j + 1];  // Desplaza todas las estaciones una posición a la izquierda
+        }
+                cantidadEstaciones--;
+                cout << "La estacion ha sido eliminada correctamente." << endl;
+                return;
     }
-}
 
+}
 
 
 void redNacional::mostrarEstaciones() const {
@@ -113,7 +107,7 @@ void redNacional::montoVentasNacional(){
     unsigned long int montoRegular(0),montoPremium(0),montoEcoExtra(0),monto(0);
     string tipoCombustible;
     short int cantidadSurtidores(0);
-    int numVentas(0);
+    unsigned int numVentas(0);
 
     for(int i = 0; i<cantidadEstaciones;i++){
         cantidadSurtidores = Estaciones[i].getCantidadSurtidores();
@@ -203,21 +197,91 @@ void redNacional::redimensionar(estacion*& arreglo, unsigned short int& capacida
     capacidadEstaciones = nuevaCapacidad;
 }
 
-estacion redNacional::encontarEstacion(estacion estacion1,bool &encontrado)
+bool redNacional::encontarEstacion(string _codigoIdentificador, int &indice)
 {
-    for(int i = 0; i < cantidadEstaciones; i++){
-        if(Estaciones[i]==estacion1 ){
-            encontrado = true;
-            return Estaciones[i];
+    for(int i = 0;i<cantidadEstaciones;i++){
+        if(Estaciones[i].getIdentificador() == _codigoIdentificador){
+            indice = i;
+            return true;
         }
     }
-    if(encontrado == false ){
-        cout << "No hay una estacion registrada con el nombre y el identificador ingresados" << endl;
-        return estacion();
+
+    cout<<"La estacion ingresada no se encuentra registrada"<<endl;
+
+}
+
+void redNacional::modificarEstacion(int &indice, short unsigned int &opc1, redNacional &red){
+    if(opc1==1){
+        cout<< "Ingrese el codigo del SURTIDOR: ";
+        string codigoSurtidor;
+        getline(cin,codigoSurtidor);
+        cout<< "Ingrese el modelo del SURTIDOR: ";
+        string modeloSurtidor;
+        getline(cin,modeloSurtidor);
+        string estado;
+        while(true){
+            cout<< "Ingrese el estado del SURTIDOR, 1 si esta ACTIVO o 2 si esta DESACTIVADO: ";
+            getline(cin, estado);
+            if (estado == "1" || estado == "2") {
+                break;
+            } else {
+                cout << "Entrada invalida. Por favor, ingrese una de las opciones permitidas." << endl;
+            }
+
+        }
+        bool ESTADO;
+        if(estado== "1"){
+            ESTADO = true;
+
+        }
+        else{
+            ESTADO = false;
+        }
+        surtidor nuevoSurtidor(codigoSurtidor,modeloSurtidor,ESTADO);
+
+        Estaciones[indice].agregarSurtidor(nuevoSurtidor);
+    }
+
+    else if(opc1 == 2){
+        cout<< "Ingrese el codigo del SURTIDOR QUE DESEA ELIMINAR: ";
+        string codigoSurtidor;
+        getline(cin,codigoSurtidor);
+        Estaciones[indice].eliminarSurtidor(codigoSurtidor);
+    }
+
+    else if(opc1 == 3){
+        cout << "Ingrese el codigo del SURTIDOR QUE DESEA ACTIVAR: ";
+        string codigoSurtidor;
+        getline(cin,codigoSurtidor);
+        Estaciones[indice].modificarSurtidor(codigoSurtidor);
+    }
+
+    else if(opc1 == 4){
+        cout << "Ingrese el codigo del SURTIDOR QUE DESEA DESACTIVAR: ";
+        string codigoSurtidor;
+        getline(cin,codigoSurtidor);
+        Estaciones[indice].modificarSurtidor(codigoSurtidor);
+    }
+
+    else if(opc1 == 5){
+        Estaciones[indice].consultarTransacciones();
+    }
+
+    else if(opc1 == 6){
+        Estaciones[indice].cantidadesVendidas();
+    }
+
+    else if(opc1 == 7){
+        Estaciones[indice].simularVenta(red);
+    }
+
+    else if(opc1==9){
+        Estaciones[indice].verificarFugas();
     }
 
 }
 
 redNacional::~redNacional(){
     delete[] Estaciones;
+    Estaciones = NULL;
 }

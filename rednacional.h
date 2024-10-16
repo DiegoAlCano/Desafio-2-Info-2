@@ -25,14 +25,15 @@ public:
     redNacional(string);//constructor
     unsigned int* getPreciosCombustible();
     void agregarEstacion(estacion);
-    void eliminarEstacion(estacion);
+    void eliminarEstacion(int &indice);
     void establecerPrecio(unsigned int, unsigned int&);
     void calcularVentas();
     void redimensionar(estacion*&, unsigned short int&, unsigned short int);
     void mostrarEstaciones() const;
     void montoVentasNacional();
     void fijarPreciosCombustible();
-    estacion encontarEstacion(estacion,bool &encontrado);
+    bool encontarEstacion(string _codigoIdentificador, int &indice);
+    void modificarEstacion(int &indice, short unsigned int &opc1, redNacional& red);
 
     ~redNacional();//Destructor
 };

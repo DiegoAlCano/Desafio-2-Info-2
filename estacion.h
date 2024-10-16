@@ -38,7 +38,6 @@ public://Metodos
     void modificarSurtidor(string _codigoIdentificador);
     void cantidadesVendidas();
     void mostrarInformacion()const;
-    void actualizarDisponible(short unsigned int _cantidadVendida, string _tipoCombustible);
     void verificarFugas();
     void simularVenta(redNacional& red);
     // Sobrecarga del operador ==

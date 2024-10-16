@@ -87,7 +87,6 @@ void redNacional::eliminarEstacion(int &indice){
         }
                 cantidadEstaciones--;
                 cout << "La estacion ha sido eliminada correctamente." << endl;
-                return;
     }
 
 }
@@ -207,7 +206,7 @@ bool redNacional::encontarEstacion(string _codigoIdentificador, int &indice)
     }
 
     cout<<"La estacion ingresada no se encuentra registrada"<<endl;
-
+    return false;
 }
 
 void redNacional::modificarEstacion(int &indice, short unsigned int &opc1, redNacional &red){

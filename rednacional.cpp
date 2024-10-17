@@ -61,7 +61,18 @@ void redNacional::agregarEstacion(estacion nuevaEstacion)
         nuevaEstacion.agregarSurtidor(surtidorDefecto2);
         Estaciones[cantidadEstaciones] = nuevaEstacion;
         cantidadEstaciones++;
-        cout<< "La estacion fue agregada correctamente."<< endl;
+        cout<< "La estacion fue agregada correctamente con 2 surtidores por defecto."<< endl;
+        cout<< "------------------------"<< endl;
+        cout<< "SURTIDOR 1"<< endl;
+        cout<< "Identificador: SURT1"<< endl;
+        cout<< "Modelo: MODELX"<< endl;
+        cout<< "Estado: ACTIVO"<< endl;
+        cout<< "------------------------"<< endl;
+        cout<< "SURTIDOR 2"<< endl;
+        cout<< "Identificador: SURT2"<< endl;
+        cout<< "Modelo: MODELY"<< endl;
+        cout<< "Estado: ACTIVO"<< endl;
+        cout<< "------------------------"<< endl;
 
     }
 }
@@ -77,7 +88,7 @@ void redNacional::eliminarEstacion(int &indice){
         estadoSurtidor = Estaciones[indice].getSurtidores()[k].getActivo();
         if(estadoSurtidor == true){
             cout<<"La estacion tiene surtidores activos"<<endl;
-                k = cantidadSurtidores;
+            k = cantidadSurtidores;
         }
     }
 
@@ -85,8 +96,8 @@ void redNacional::eliminarEstacion(int &indice){
         for (int j = indice; j < cantidadEstaciones - 1; j++) {
             Estaciones[j] = Estaciones[j + 1];  // Desplaza todas las estaciones una posición a la izquierda
         }
-                cantidadEstaciones--;
-                cout << "La estacion ha sido eliminada correctamente." << endl;
+        cantidadEstaciones--;
+        cout << "La estacion ha sido eliminada correctamente." << endl;
     }
 
 }

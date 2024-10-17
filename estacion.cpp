@@ -84,7 +84,7 @@ void estacion::eliminarSurtidor(string _codigoIdentificador){
         }
     }
     else{
-       cout <<"La estacion tiene el numero minimo de surtidores: 2"<<endl;
+        cout <<"La estacion tiene el numero minimo de surtidores: 2"<<endl;
     }
 }
 
@@ -255,142 +255,295 @@ void estacion::simularVenta(redNacional& red){
     short int tipo;
     Venta nuevaVenta;
 
-    srand(time(NULL));
-
-
-    surt = rand() % cantidadSurtidores;
-
-    cout<<"La fecha debe ser ingresada en formato: dd/mm/aa"<<endl;
-    cout<<"Ingrese el dia de la venta: ";
-    cin>>textoAux;
-    texto += textoAux;
-    texto += '/';
-    cout<<"Ingrese el mes de la venta: ";
-    cin>>textoAux;
-    texto += textoAux;
-    texto += '/';
-    cout<<"Ingrese el anio de la venta: ";
-    cin>>textoAux;
-    texto += textoAux;
-
-    nuevaVenta.setFechaVenta(texto);
-    texto="";
-
-    cout<<"La hora debe ser ingresada en formato 24 horas hh:mm"<<endl;
-    cout<<"Ingrese la hora del dia de la venta: ";
-    cin>>textoAux;
-    texto += textoAux;
-    texto += ':';
-    cout<<"Ingrese el minuto del dia de la venta: ";
-    cin>>textoAux;
-    texto += textoAux;
-
-    nuevaVenta.setHoraVenta(texto);
-    texto = "";
-
-    while(true){
-        cout<<"Ingrese 1 para tipo de combustible Regular"<<endl;
-        cout<<"Ingrese 2 para tipo de combustible Premium"<<endl;
-        cout<<"Ingrese 3 para tipo de combustible EcoExtra"<<endl;
-        cout<<"Tipo de combustible: ";
-        cin>>tipo;
-
-        if (cin.fail()) {
-            cin.clear(); // Limpiar el error de entrada
-            cin.ignore(1000, '\n'); // Ignorar la entrada inválida
-            cout << "Tipo de combustible invalido. Intente de nuevo" << endl;
+    unsigned short int cantidadActivos;
+    for(int i = 0; i<cantidadSurtidores;i++){
+        if(Surtidores[i].getActivo()==true){
+            cantidadActivos++;
         }
+    }
+    if(cantidadActivos == 1){
 
-        else if(tipo!=1 and tipo!=2 and tipo!=3){
-            cout<<"Tipo de Combustible invalido.Intente de nuevo"<<endl;
+        int aux;
+        srand(time(NULL));
+        for(int i = 0;i< cantidadSurtidores;i++){
+            if(Surtidores[i].getActivo()==true){
+                aux = i;
+            }
         }
+        srand(time(NULL));
+        cout<<"La fecha debe ser ingresada en formato: dd/mm/aa"<<endl;
+        cout<<"Ingrese el dia de la venta: ";
+        cin>>textoAux;
+        texto += textoAux;
+        texto += '/';
+        cout<<"Ingrese el mes de la venta: ";
+        cin>>textoAux;
+        texto += textoAux;
+        texto += '/';
+        cout<<"Ingrese el anio de la venta: ";
+        cin>>textoAux;
+        texto += textoAux;
 
-        else{
-            combustibleVendido = (rand() % 20) + 3;
-            if(combustibleVendido>tanque[tipo+2]){
-                combustibleVendido = tanque[tipo+2];
+        nuevaVenta.setFechaVenta(texto);
+        texto="";
+
+        cout<<"La hora debe ser ingresada en formato 24 horas hh:mm"<<endl;
+        cout<<"Ingrese la hora del dia de la venta: ";
+        cin>>textoAux;
+        texto += textoAux;
+        texto += ':';
+        cout<<"Ingrese el minuto del dia de la venta: ";
+        cin>>textoAux;
+        texto += textoAux;
+
+        nuevaVenta.setHoraVenta(texto);
+        texto = "";
+
+        while(true){
+            cout<<"Ingrese 1 para tipo de combustible Regular"<<endl;
+            cout<<"Ingrese 2 para tipo de combustible Premium"<<endl;
+            cout<<"Ingrese 3 para tipo de combustible EcoExtra"<<endl;
+            cout<<"Tipo de combustible: ";
+            cin>>tipo;
+
+            if (cin.fail()) {
+                cin.clear(); // Limpiar el error de entrada
+                cin.ignore(1000, '\n'); // Ignorar la entrada inválida
+                cout << "Tipo de combustible invalido. Intente de nuevo" << endl;
             }
 
-            tanque[tipo+2]-=combustibleVendido;
+            else if(tipo!=1 and tipo!=2 and tipo!=3){
+                cout<<"Tipo de Combustible invalido.Intente de nuevo"<<endl;
+            }
 
-            cout<<"Litros de combustible vendido: "<<combustibleVendido<<endl;
+            else{
+                combustibleVendido = (rand() % 20) + 3;
+                if(combustibleVendido>tanque[tipo+2]){
+                    combustibleVendido = tanque[tipo+2];
+                }
 
-            nuevaVenta.setCantidadCombustibleVendido(combustibleVendido);
+                tanque[tipo+2]-=combustibleVendido;
+
+                cout<<"Litros de combustible vendido: "<<combustibleVendido<<endl;
+
+                nuevaVenta.setCantidadCombustibleVendido(combustibleVendido);
 
 
-            if(tipo==1){
-                nuevaVenta.setCategoriaCombustible("Regular");
+                if(tipo==1){
+                    nuevaVenta.setCategoriaCombustible("Regular");
+                }
+                else if(tipo==2){
+                    nuevaVenta.setCategoriaCombustible("Premium");
+                }
+                else if(tipo==3){
+                    nuevaVenta.setCategoriaCombustible("EcoExtra");
+                }
+
+                if(region=="Norte"){
+                    valorVenta = combustibleVendido*red.getPreciosCombustible()[tipo-1];
+                }
+                else if(region == "Centro"){
+                    valorVenta = combustibleVendido*red.getPreciosCombustible()[tipo+2];
+                }
+                else if(region=="Sur"){
+                    valorVenta = combustibleVendido*red.getPreciosCombustible()[tipo+5];
+                }
+
+                cout<<"Valor de la venta: "<<valorVenta<<endl;
+                nuevaVenta.setCantidadDinero(valorVenta);
+                break;
+
+            }
+        }
+
+        while(true){
+            cout<<"Ingrese 1 para metodo de pago Efectivo"<<endl;
+            cout<<"Ingrese 2 para metodo de pago TDebito"<<endl;
+            cout<<"Ingrese 3 para metodo de pago TCredito"<<endl;
+            cout<<"Metodo de Pago: ";
+            cin>>tipo;
+
+            if(cin.fail()){
+                cin.clear(); // Limpiar el error de entrada
+                cin.ignore(1000, '\n'); // Ignorar la entrada inválida
+                cout << "Tipo de metodo de pago invalido. Intente de nuevo" << endl;
+            }
+
+            else if(tipo==1){
+                nuevaVenta.setMetodoPago("Efectivo");
+                break;
             }
             else if(tipo==2){
-                nuevaVenta.setCategoriaCombustible("Premium");
+                nuevaVenta.setMetodoPago("TDebito");
+                break;
             }
             else if(tipo==3){
-                nuevaVenta.setCategoriaCombustible("EcoExtra");
+                nuevaVenta.setMetodoPago("TCredito");
+                break;
             }
 
-            if(region=="Norte"){
-                valorVenta = combustibleVendido*red.getPreciosCombustible()[tipo-1];
+            else{
+                cout<<"Metodo de pago invalido.Intente de nuevo"<<endl;
             }
-            else if(region == "Centro"){
-                valorVenta = combustibleVendido*red.getPreciosCombustible()[tipo+2];
-            }
-            else if(region=="Sur"){
-                valorVenta = combustibleVendido*red.getPreciosCombustible()[tipo+5];
-            }
-
-            cout<<"Valor de la venta: "<<valorVenta<<endl;
-            nuevaVenta.setCantidadDinero(valorVenta);
-            break;
 
         }
+
+        cout<<"Ingrese el numero de documento del cliente: ";
+        cin>>textoAux;
+
+        nuevaVenta.setDocumentoCliente(textoAux);
+
+        Surtidores[aux].agregarVenta(nuevaVenta);
+        cout<<"Venta agregada exitosamente"<<endl;
+        cout<<endl;
+
+        nuevaVenta.mostrarVenta();
+    }
+    else if(cantidadActivos > 1){
+
+        srand(time(NULL));
+        surt = rand() % cantidadSurtidores;
+        while(Surtidores[surt].getActivo()==false){
+            surt = rand() % cantidadSurtidores;
+        }
+
+        cout<<"La fecha debe ser ingresada en formato: dd/mm/aa"<<endl;
+        cout<<"Ingrese el dia de la venta: ";
+        cin>>textoAux;
+        texto += textoAux;
+        texto += '/';
+        cout<<"Ingrese el mes de la venta: ";
+        cin>>textoAux;
+        texto += textoAux;
+        texto += '/';
+        cout<<"Ingrese el anio de la venta: ";
+        cin>>textoAux;
+        texto += textoAux;
+
+        nuevaVenta.setFechaVenta(texto);
+        texto="";
+
+        cout<<"La hora debe ser ingresada en formato 24 horas hh:mm"<<endl;
+        cout<<"Ingrese la hora del dia de la venta: ";
+        cin>>textoAux;
+        texto += textoAux;
+        texto += ':';
+        cout<<"Ingrese el minuto del dia de la venta: ";
+        cin>>textoAux;
+        texto += textoAux;
+
+        nuevaVenta.setHoraVenta(texto);
+        texto = "";
+
+        while(true){
+            cout<<"Ingrese 1 para tipo de combustible Regular"<<endl;
+            cout<<"Ingrese 2 para tipo de combustible Premium"<<endl;
+            cout<<"Ingrese 3 para tipo de combustible EcoExtra"<<endl;
+            cout<<"Tipo de combustible: ";
+            cin>>tipo;
+
+            if (cin.fail()) {
+                cin.clear(); // Limpiar el error de entrada
+                cin.ignore(1000, '\n'); // Ignorar la entrada inválida
+                cout << "Tipo de combustible invalido. Intente de nuevo" << endl;
+            }
+
+            else if(tipo!=1 and tipo!=2 and tipo!=3){
+                cout<<"Tipo de Combustible invalido.Intente de nuevo"<<endl;
+            }
+
+            else{
+                combustibleVendido = (rand() % 20) + 3;
+                if(combustibleVendido>tanque[tipo+2]){
+                    combustibleVendido = tanque[tipo+2];
+                }
+
+                tanque[tipo+2]-=combustibleVendido;
+
+                cout<<"Litros de combustible vendido: "<<combustibleVendido<<endl;
+
+                nuevaVenta.setCantidadCombustibleVendido(combustibleVendido);
+
+
+                if(tipo==1){
+                    nuevaVenta.setCategoriaCombustible("Regular");
+                }
+                else if(tipo==2){
+                    nuevaVenta.setCategoriaCombustible("Premium");
+                }
+                else if(tipo==3){
+                    nuevaVenta.setCategoriaCombustible("EcoExtra");
+                }
+
+                if(region=="Norte"){
+                    valorVenta = combustibleVendido*red.getPreciosCombustible()[tipo-1];
+                }
+                else if(region == "Centro"){
+                    valorVenta = combustibleVendido*red.getPreciosCombustible()[tipo+2];
+                }
+                else if(region=="Sur"){
+                    valorVenta = combustibleVendido*red.getPreciosCombustible()[tipo+5];
+                }
+
+                cout<<"Valor de la venta: "<<valorVenta<<endl;
+                nuevaVenta.setCantidadDinero(valorVenta);
+                break;
+
+            }
+        }
+
+        while(true){
+            cout<<"Ingrese 1 para metodo de pago Efectivo"<<endl;
+            cout<<"Ingrese 2 para metodo de pago TDebito"<<endl;
+            cout<<"Ingrese 3 para metodo de pago TCredito"<<endl;
+            cout<<"Metodo de Pago: ";
+            cin>>tipo;
+
+            if(cin.fail()){
+                cin.clear(); // Limpiar el error de entrada
+                cin.ignore(1000, '\n'); // Ignorar la entrada inválida
+                cout << "Tipo de metodo de pago invalido. Intente de nuevo" << endl;
+            }
+
+            else if(tipo==1){
+                nuevaVenta.setMetodoPago("Efectivo");
+                break;
+            }
+            else if(tipo==2){
+                nuevaVenta.setMetodoPago("TDebito");
+                break;
+            }
+            else if(tipo==3){
+                nuevaVenta.setMetodoPago("TCredito");
+                break;
+            }
+
+            else{
+                cout<<"Metodo de pago invalido.Intente de nuevo"<<endl;
+            }
+
+        }
+
+        cout<<"Ingrese el numero de documento del cliente: ";
+        cin>>textoAux;
+
+        nuevaVenta.setDocumentoCliente(textoAux);
+
+        Surtidores[surt].agregarVenta(nuevaVenta);
+        cout<<"Venta agregada exitosamente"<<endl;
+        cout<<endl;
+
+        nuevaVenta.mostrarVenta();
+    }
+    else{
+        cout << "La estacion no tiene surtidores activos para simular la venta"<< endl;
     }
 
-    while(true){
-        cout<<"Ingrese 1 para metodo de pago Efectivo"<<endl;
-        cout<<"Ingrese 2 para metodo de pago TDebito"<<endl;
-        cout<<"Ingrese 3 para metodo de pago TCredito"<<endl;
-        cout<<"Metodo de Pago: ";
-        cin>>tipo;
-
-        if(cin.fail()){
-            cin.clear(); // Limpiar el error de entrada
-            cin.ignore(1000, '\n'); // Ignorar la entrada inválida
-            cout << "Tipo de metodo de pago invalido. Intente de nuevo" << endl;
-        }
-
-        else if(tipo==1){
-            nuevaVenta.setMetodoPago("Efectivo");
-            break;
-        }
-        else if(tipo==2){
-            nuevaVenta.setMetodoPago("TDebito");
-            break;
-        }
-        else if(tipo==3){
-            nuevaVenta.setMetodoPago("TCredito");
-            break;
-        }
-
-        else{
-            cout<<"Metodo de pago invalido.Intente de nuevo"<<endl;
-        }
-
-    }
-
-    cout<<"Ingrese el numero de documento del cliente: ";
-    cin>>textoAux;
-
-    nuevaVenta.setDocumentoCliente(textoAux);
-
-    Surtidores[surt].agregarVenta(nuevaVenta);
-    cout<<"Venta agregada exitosamente"<<endl;
-    cout<<endl;
-
-    nuevaVenta.mostrarVenta();
 }
+
 
 estacion::~estacion(){
 
-    //delete[] Surtidores;
-    //Surtidores = NULL;
+        //delete[] Surtidores;
+        //Surtidores = NULL;
 }

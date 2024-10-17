@@ -133,9 +133,9 @@ void redNacional::montoVentasNacional(){
 
     }
 
-    cout<<"Monto total de ventas de combustible Regular: "<<montoRegular<<endl;
-    cout<<"Monto total de ventas de combustible Premium: "<<montoPremium<<endl;
-    cout<<"Monto total de ventas de combustible EcoExtra: "<<montoEcoExtra<<endl;
+    cout<<"Monto total de ventas de combustible Regular vendido a nivel nacional es: $"<<montoRegular<<endl;
+    cout<<"Monto total de ventas de combustible Premium vendido a nivel nacional es: $"<<montoPremium<<endl;
+    cout<<"Monto total de ventas de combustible EcoExtra vendido a nivel nacional es: $"<<montoEcoExtra<<endl;
     cout<<endl;
 
 

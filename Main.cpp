@@ -18,41 +18,8 @@ int main()
 
     estacion estacion1("La Grande","5840","Diego","Centro","13975449076");
     estacion1.capacidadTanque();
-    surtidor surtidor1("ABC123", "ModeloX", true);
-    surtidor surtidor2("ABC321","MODELY",true);
-    surtidor surtidor3("ABC312","MODELZ",true);
-    surtidor surtidor4("ABC234", "ModeloX", true);
-    surtidor surtidor5("ABC432","MODELY",true);
-    surtidor surtidor6("ABC423","MODELZ",true);
-    Venta venta1("9/10/2024","9:28",3.4,"Regular","Efectivo","1002969042",666);
-    Venta venta2("9/10/2024","10:28",1.5,"Premium","Efectivo","11112969042",30000);
-    Venta venta3("10/10/2024","7:31",3,"EcoExtra","Efectivo","1002969042",50000);
-    Venta venta4("11/10/2024","12:16",3,"EcoExtra","Efectivo","103681573",50000);
-    Venta venta5("9/10/2024","9:28",3.4,"Regular","Efectivo","1002969042",777);
-    Venta venta6("9/10/2024","10:28",1.5,"Premium","Efectivo","11112969042",30000);
-    Venta venta7("10/10/2024","7:31",3,"Premium","Efectivo","1002969042",50000);
-    Venta venta8("11/10/2024","12:16",3,"EcoExtra","Efectivo","103681573",50000);
-
-    surtidor1.agregarVenta(venta1);
-    surtidor1.agregarVenta(venta4);
-    surtidor3.agregarVenta(venta2);
-    surtidor2.agregarVenta(venta3);
-    surtidor6.agregarVenta(venta5);
-    surtidor4.agregarVenta(venta8);
-    surtidor4.agregarVenta(venta6);
-    surtidor5.agregarVenta(venta7);
-
-    estacion1.agregarSurtidor(surtidor1);
-    estacion1.agregarSurtidor(surtidor2);
-    estacion1.agregarSurtidor(surtidor3);
-    estacion1.capacidadTanque();
-    string infoRegion = estacion1.getRegion();
     pais.agregarEstacion(estacion1);
-    //segunda estacion
-    estacion estacion2("La Grande2","4058","Diego2","Norte","358958306");
-    estacion2.agregarSurtidor(surtidor4);
-    estacion2.agregarSurtidor(surtidor5);
-    estacion2.agregarSurtidor(surtidor6);
+    estacion estacion2("CENTRAL","4058","Samuel","Norte","358958306");
     estacion2.capacidadTanque();
     pais.agregarEstacion(estacion2);
 

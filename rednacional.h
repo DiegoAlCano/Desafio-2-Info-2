@@ -26,8 +26,6 @@ public:
     unsigned int* getPreciosCombustible();
     void agregarEstacion(estacion);
     void eliminarEstacion(int &indice);
-    void establecerPrecio(unsigned int, unsigned int&);
-    void calcularVentas();
     void redimensionar(estacion*&, unsigned short int&, unsigned short int);
     void mostrarEstaciones() const;
     void montoVentasNacional();

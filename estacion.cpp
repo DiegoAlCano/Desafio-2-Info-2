@@ -248,157 +248,27 @@ void estacion::verificarFugas(){
 
 void estacion::simularVenta(redNacional& red){
 
-    unsigned short int surt = 0;
+    unsigned short int surt = 0,combustibleVendido=0,cantidadActivos=0,tipo=0;
     string texto, textoAux;
-    short unsigned int combustibleVendido;
     unsigned int valorVenta=0;
-    short int tipo;
     Venta nuevaVenta;
 
-    unsigned short int cantidadActivos;
     for(int i = 0; i<cantidadSurtidores;i++){
         if(Surtidores[i].getActivo()==true){
             cantidadActivos++;
         }
     }
+
     if(cantidadActivos == 1){
 
-        int aux;
         srand(time(NULL));
         for(int i = 0;i< cantidadSurtidores;i++){
             if(Surtidores[i].getActivo()==true){
-                aux = i;
+                surt = i;
             }
         }
-        srand(time(NULL));
-        cout<<"La fecha debe ser ingresada en formato: dd/mm/aa"<<endl;
-        cout<<"Ingrese el dia de la venta: ";
-        cin>>textoAux;
-        texto += textoAux;
-        texto += '/';
-        cout<<"Ingrese el mes de la venta: ";
-        cin>>textoAux;
-        texto += textoAux;
-        texto += '/';
-        cout<<"Ingrese el anio de la venta: ";
-        cin>>textoAux;
-        texto += textoAux;
-
-        nuevaVenta.setFechaVenta(texto);
-        texto="";
-
-        cout<<"La hora debe ser ingresada en formato 24 horas hh:mm"<<endl;
-        cout<<"Ingrese la hora del dia de la venta: ";
-        cin>>textoAux;
-        texto += textoAux;
-        texto += ':';
-        cout<<"Ingrese el minuto del dia de la venta: ";
-        cin>>textoAux;
-        texto += textoAux;
-
-        nuevaVenta.setHoraVenta(texto);
-        texto = "";
-
-        while(true){
-            cout<<"Ingrese 1 para tipo de combustible Regular"<<endl;
-            cout<<"Ingrese 2 para tipo de combustible Premium"<<endl;
-            cout<<"Ingrese 3 para tipo de combustible EcoExtra"<<endl;
-            cout<<"Tipo de combustible: ";
-            cin>>tipo;
-
-            if (cin.fail()) {
-                cin.clear(); // Limpiar el error de entrada
-                cin.ignore(1000, '\n'); // Ignorar la entrada inválida
-                cout << "Tipo de combustible invalido. Intente de nuevo" << endl;
-            }
-
-            else if(tipo!=1 and tipo!=2 and tipo!=3){
-                cout<<"Tipo de Combustible invalido.Intente de nuevo"<<endl;
-            }
-
-            else{
-                combustibleVendido = (rand() % 20) + 3;
-                if(combustibleVendido>tanque[tipo+2]){
-                    combustibleVendido = tanque[tipo+2];
-                }
-
-                tanque[tipo+2]-=combustibleVendido;
-
-                cout<<"Litros de combustible vendido: "<<combustibleVendido<<endl;
-
-                nuevaVenta.setCantidadCombustibleVendido(combustibleVendido);
-
-
-                if(tipo==1){
-                    nuevaVenta.setCategoriaCombustible("Regular");
-                }
-                else if(tipo==2){
-                    nuevaVenta.setCategoriaCombustible("Premium");
-                }
-                else if(tipo==3){
-                    nuevaVenta.setCategoriaCombustible("EcoExtra");
-                }
-
-                if(region=="Norte"){
-                    valorVenta = combustibleVendido*red.getPreciosCombustible()[tipo-1];
-                }
-                else if(region == "Centro"){
-                    valorVenta = combustibleVendido*red.getPreciosCombustible()[tipo+2];
-                }
-                else if(region=="Sur"){
-                    valorVenta = combustibleVendido*red.getPreciosCombustible()[tipo+5];
-                }
-
-                cout<<"Valor de la venta: "<<valorVenta<<endl;
-                nuevaVenta.setCantidadDinero(valorVenta);
-                break;
-
-            }
-        }
-
-        while(true){
-            cout<<"Ingrese 1 para metodo de pago Efectivo"<<endl;
-            cout<<"Ingrese 2 para metodo de pago TDebito"<<endl;
-            cout<<"Ingrese 3 para metodo de pago TCredito"<<endl;
-            cout<<"Metodo de Pago: ";
-            cin>>tipo;
-
-            if(cin.fail()){
-                cin.clear(); // Limpiar el error de entrada
-                cin.ignore(1000, '\n'); // Ignorar la entrada inválida
-                cout << "Tipo de metodo de pago invalido. Intente de nuevo" << endl;
-            }
-
-            else if(tipo==1){
-                nuevaVenta.setMetodoPago("Efectivo");
-                break;
-            }
-            else if(tipo==2){
-                nuevaVenta.setMetodoPago("TDebito");
-                break;
-            }
-            else if(tipo==3){
-                nuevaVenta.setMetodoPago("TCredito");
-                break;
-            }
-
-            else{
-                cout<<"Metodo de pago invalido.Intente de nuevo"<<endl;
-            }
-
-        }
-
-        cout<<"Ingrese el numero de documento del cliente: ";
-        cin>>textoAux;
-
-        nuevaVenta.setDocumentoCliente(textoAux);
-
-        Surtidores[aux].agregarVenta(nuevaVenta);
-        cout<<"Venta agregada exitosamente"<<endl;
-        cout<<endl;
-
-        nuevaVenta.mostrarVenta();
     }
+
     else if(cantidadActivos > 1){
 
         srand(time(NULL));
@@ -406,7 +276,13 @@ void estacion::simularVenta(redNacional& red){
         while(Surtidores[surt].getActivo()==false){
             surt = rand() % cantidadSurtidores;
         }
+    }
 
+    else{
+        cout << "La estacion no tiene surtidores activos para simular la venta"<< endl;
+    }
+
+    if(cantidadActivos>1 or cantidadActivos==1){
         cout<<"La fecha debe ser ingresada en formato: dd/mm/aa"<<endl;
         cout<<"Ingrese el dia de la venta: ";
         cin>>textoAux;
@@ -453,7 +329,7 @@ void estacion::simularVenta(redNacional& red){
             }
 
             else{
-                combustibleVendido = (rand() % 20) + 3;
+                combustibleVendido = 3 + (rand() % 18);
                 if(combustibleVendido>tanque[tipo+2]){
                     combustibleVendido = tanque[tipo+2];
                 }
@@ -535,15 +411,12 @@ void estacion::simularVenta(redNacional& red){
 
         nuevaVenta.mostrarVenta();
     }
-    else{
-        cout << "La estacion no tiene surtidores activos para simular la venta"<< endl;
-    }
 
 }
 
 
 estacion::~estacion(){
 
-        //delete[] Surtidores;
-        //Surtidores = NULL;
+    //delete[] Surtidores;
+    //Surtidores = NULL;
 }

@@ -40,10 +40,6 @@ public://Metodos
     void mostrarInformacion()const;
     void verificarFugas();
     void simularVenta(redNacional& red);
-    // Sobrecarga del operador ==
-    bool operator==(const estacion& otraEstacion) const {
-        return (nombre == otraEstacion.nombre && identificador == otraEstacion.identificador);
-    }
 
 };
 
